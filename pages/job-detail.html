@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Job Detail – HireConnect</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+  <!-- NAVBAR -->
+  <nav class="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between">
+    <a href="../index.html" class="text-blue-600 font-semibold text-lg">💼 HireConnect</a>
+    <div class="flex gap-3 items-center">
+      <a href="browse-jobs.html" class="text-sm text-gray-600 hover:text-blue-600">Browse Jobs</a>
+      <a href="seeker-dashboard.html" class="text-sm text-gray-600 hover:text-blue-600">Dashboard</a>
+      <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 text-xs font-medium flex items-center justify-center">KS</div>
+    </div>
+  </nav>
+
+  <!-- BACK BUTTON -->
+  <div class="max-w-4xl mx-auto px-6 pt-5">
+    <a href="browse-jobs.html"
+      class="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-blue-600 mb-4">
+      ← Back to jobs
+    </a>
+  </div>
+
+  <!-- MAIN -->
+  <div class="max-w-4xl mx-auto px-6 pb-12 flex gap-6">
+
+    <!-- LEFT COLUMN -->
+    <div class="flex-1">
+
+      <!-- JOB HEADER CARD -->
+      <div class="bg-white border border-gray-200 rounded-xl p-6 mb-4">
+        <div class="flex items-start justify-between gap-4 mb-4">
+          <div class="flex items-start gap-4">
+            <div class="w-14 h-14 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center text-sm font-semibold text-gray-500">
+              IN
+            </div>
+            <div>
+              <h1 class="text-xl font-semibold text-gray-900 mb-1">Frontend Developer</h1>
+              <p class="text-sm text-gray-500">Infosys &nbsp;·&nbsp; Bangalore &nbsp;·&nbsp; Full-time</p>
+              <p class="text-sm text-gray-400 mt-0.5">Posted 2 days ago &nbsp;·&nbsp; 48 applicants</p>
+            </div>
+          </div>
+          <div class="flex-shrink-0 text-right">
+            <p class="text-lg font-semibold text-blue-600 mb-1">₹8–12 LPA</p>
+            <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">New</span>
+          </div>
+        </div>
+
+        <!-- SKILL TAGS -->
+        <div class="flex flex-wrap gap-2 mb-5">
+          <span class="text-xs bg-green-50 text-green-700 border border-green-200 px-3 py-1 rounded">✓ React</span>
+          <span class="text-xs bg-green-50 text-green-700 border border-green-200 px-3 py-1 rounded">✓ Tailwind CSS</span>
+          <span class="text-xs bg-green-50 text-green-700 border border-green-200 px-3 py-1 rounded">✓ JavaScript</span>
+          <span class="text-xs bg-gray-100 text-gray-500 px-3 py-1 rounded">REST APIs</span>
+          <span class="text-xs bg-gray-100 text-gray-500 px-3 py-1 rounded">Git</span>
+        </div>
+
+        <!-- APPLY BUTTON -->
+        <div class="flex gap-3">
+          <button onclick="handleApply()"
+            class="bg-blue-600 text-white px-6 py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
+            Apply now
+          </button>
+          <button class="border border-gray-300 text-gray-600 px-4 py-2.5 rounded-lg text-sm hover:bg-gray-50">
+            Save job
+          </button>
+        </div>
+
+        <!-- SUCCESS MESSAGE (hidden by default) -->
+        <div id="apply-success" class="hidden mt-4 bg-green-50 border border-green-200 text-green-700 text-sm px-4 py-3 rounded-lg">
+          ✅ Application submitted! You can track it in <a href="my-applications.html" class="underline font-medium">My Applications</a>.
+        </div>
+
+      </div>
+
+      <!-- JOB DESCRIPTION -->
+      <div class="bg-white border border-gray-200 rounded-xl p-6 mb-4">
+        <h2 class="text-base font-semibold mb-3">About the role</h2>
+        <p class="text-sm text-gray-600 leading-relaxed mb-4">
+          We're looking for a skilled Frontend Developer to join our product team at Infosys.
+          You'll build responsive, accessible interfaces using React and Tailwind CSS, collaborate
+          closely with designers and backend engineers, and integrate with REST APIs to deliver
+          high-quality user experiences.
+        </p>
+
+        <h2 class="text-base font-semibold mb-3">Responsibilities</h2>
+        <ul class="text-sm text-gray-600 space-y-2 mb-4 list-disc list-inside">
+          <li>Build and maintain React components and pages</li>
+          <li>Collaborate with UI/UX designers to implement designs accurately</li>
+          <li>Integrate frontend with backend REST APIs</li>
+          <li>Write clean, maintainable, and well-documented code</li>
+          <li>Participate in code reviews and sprint planning</li>
+        </ul>
+
+        <h2 class="text-base font-semibold mb-3">Requirements</h2>
+        <ul class="text-sm text-gray-600 space-y-2 list-disc list-inside">
+          <li>Strong knowledge of HTML, CSS, and JavaScript</li>
+          <li>Hands-on experience with React.js</li>
+          <li>Familiarity with Tailwind CSS or similar frameworks</li>
+          <li>Understanding of REST APIs and Git version control</li>
+          <li>Good communication and teamwork skills</li>
+        </ul>
+      </div>
+
+      <!-- COMPANY INFO -->
+      <div class="bg-white border border-gray-200 rounded-xl p-6">
+        <h2 class="text-base font-semibold mb-3">About Infosys</h2>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          Infosys is a global leader in next-generation digital services and consulting, helping
+          clients navigate digital transformation. Headquartered in Bengaluru, India, with over
+          300,000 employees worldwide.
+        </p>
+        <div class="mt-4 grid grid-cols-2 gap-3">
+          <div class="bg-gray-50 rounded-lg p-3">
+            <p class="text-xs text-gray-400 mb-0.5">Industry</p>
+            <p class="text-sm text-gray-700 font-medium">IT Services</p>
+          </div>
+          <div class="bg-gray-50 rounded-lg p-3">
+            <p class="text-xs text-gray-400 mb-0.5">Company size</p>
+            <p class="text-sm text-gray-700 font-medium">300,000+ employees</p>
+          </div>
+          <div class="bg-gray-50 rounded-lg p-3">
+            <p class="text-xs text-gray-400 mb-0.5">Founded</p>
+            <p class="text-sm text-gray-700 font-medium">1981</p>
+          </div>
+          <div class="bg-gray-50 rounded-lg p-3">
+            <p class="text-xs text-gray-400 mb-0.5">Headquarters</p>
+            <p class="text-sm text-gray-700 font-medium">Bangalore, India</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="w-64 flex-shrink-0">
+
+      <!-- SKILL MATCH CARD -->
+      <div class="bg-white border border-gray-200 rounded-xl p-5 mb-4">
+        <h3 class="text-sm font-semibold mb-3">Your skill match</h3>
+
+        <div class="flex items-center gap-3 mb-4">
+          <span class="text-3xl font-semibold text-blue-600">67%</span>
+          <div class="flex-1">
+            <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+              <div class="h-full bg-blue-500 rounded-full" style="width: 67%"></div>
+            </div>
+            <p class="text-xs text-gray-400 mt-1">4 of 5 skills matched</p>
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-gray-600">React</span>
+            <span class="text-green-600 font-medium">✓ Matched</span>
+          </div>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-gray-600">Tailwind CSS</span>
+            <span class="text-green-600 font-medium">✓ Matched</span>
+          </div>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-gray-600">JavaScript</span>
+            <span class="text-green-600 font-medium">✓ Matched</span>
+          </div>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-gray-600">REST APIs</span>
+            <span class="text-green-600 font-medium">✓ Matched</span>
+          </div>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-gray-600">Git</span>
+            <span class="text-red-400">✗ Missing</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- JOB OVERVIEW CARD -->
+      <div class="bg-white border border-gray-200 rounded-xl p-5 mb-4">
+        <h3 class="text-sm font-semibold mb-3">Job overview</h3>
+        <div class="space-y-3 text-xs text-gray-600">
+          <div class="flex items-start gap-2">
+            <span class="text-base">📅</span>
+            <div>
+              <p class="text-gray-400">Deadline</p>
+              <p class="font-medium text-gray-700">30 July 2025</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-base">🎓</span>
+            <div>
+              <p class="text-gray-400">Experience</p>
+              <p class="font-medium text-gray-700">Fresher / 0–2 years</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-base">💰</span>
+            <div>
+              <p class="text-gray-400">Salary</p>
+              <p class="font-medium text-gray-700">₹8–12 LPA</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-base">📍</span>
+            <div>
+              <p class="text-gray-400">Location</p>
+              <p class="font-medium text-gray-700">Bangalore, India</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-2">
+            <span class="text-base">🏢</span>
+            <div>
+              <p class="text-gray-400">Job type</p>
+              <p class="font-medium text-gray-700">Full-time</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SIMILAR JOBS -->
+      <div class="bg-white border border-gray-200 rounded-xl p-5">
+        <h3 class="text-sm font-semibold mb-3">Similar jobs</h3>
+        <div class="space-y-3">
+          <a href="job-detail.html" class="block hover:bg-gray-50 rounded-lg p-2 -mx-2 transition-colors">
+            <p class="text-xs font-medium text-gray-800">React Native Developer</p>
+            <p class="text-xs text-gray-400">Capgemini · ₹9 LPA</p>
+          </a>
+          <a href="job-detail.html" class="block hover:bg-gray-50 rounded-lg p-2 -mx-2 transition-colors">
+            <p class="text-xs font-medium text-gray-800">Full Stack Developer</p>
+            <p class="text-xs text-gray-400">HCL Tech · ₹12 LPA</p>
+          </a>
+          <a href="job-detail.html" class="block hover:bg-gray-50 rounded-lg p-2 -mx-2 transition-colors">
+            <p class="text-xs font-medium text-gray-800">Frontend Intern</p>
+            <p class="text-xs text-gray-400">Zoho · ₹20K/mo</p>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    function handleApply() {
+      // Later replace with real API call:
+      // await fetch('http://localhost:5000/api/applications', {
+      //   method: 'POST',
+      //   headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      //   body: JSON.stringify({ jobId: jobId })
+      // })
+      document.getElementById('apply-success').classList.remove('hidden')
+      document.querySelector('button').disabled = true
+      document.querySelector('button').textContent = 'Applied ✓'
+      document.querySelector('button').classList.replace('bg-blue-600', 'bg-gray-300')
+    }
+  </script>
+
+</body>
+</html>
