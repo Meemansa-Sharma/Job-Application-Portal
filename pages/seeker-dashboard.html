@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Dashboard – HireConnect</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../js/auth.js"></script>
 </head>
 <body class="bg-gray-50 min-h-screen">
 
@@ -12,65 +13,38 @@
 
     <!-- SIDEBAR -->
     <aside class="w-56 bg-white border-r border-gray-200 flex flex-col">
-
-      <!-- LOGO -->
       <div class="px-5 py-4 border-b border-gray-100">
         <a href="../index.html" class="text-blue-600 font-semibold text-lg">HireConnect</a>
       </div>
-
-      <!-- USER INFO -->
       <div class="px-5 py-4 border-b border-gray-100">
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold flex items-center justify-center">
-            JD
-          </div>
+          <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold flex items-center justify-center" data-initials></div>
           <div>
-            <p class="text-sm font-medium text-gray-900">John</p>
-            <p class="text-xs text-gray-400">Job seeker</p>
+            <p class="text-sm font-medium text-gray-900" data-firstname></p>
+            <p class="text-xs text-gray-400" data-role></p>
           </div>
         </div>
       </div>
-
-      <!-- NAV LINKS -->
       <nav class="flex-1 px-3 py-4 space-y-1">
-        <a href="seeker-dashboard.html"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm bg-blue-50 text-blue-600 font-medium">
-          🏠 Dashboard
-        </a>
-        <a href="profile.html"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">
-          👤 Profile
-        </a>
-        <a href="browse-jobs.html"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">
-          🔍 Browse Jobs
-        </a>
-        <a href="my-applications.html"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">
-          📄 My Applications
-        </a>
+        <a href="seeker-dashboard.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm bg-blue-50 text-blue-600 font-medium">🏠 Dashboard</a>
+        <a href="profile.html"          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">👤 Profile</a>
+        <a href="browse-jobs.html"      class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">🔍 Browse Jobs</a>
+        <a href="my-applications.html"  class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">📄 My Applications</a>
       </nav>
-
-      <!-- LOGOUT -->
       <div class="px-3 py-4 border-t border-gray-100">
-        <a href="../login.html"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-500 hover:bg-red-50">
-          🚪 Log out
-        </a>
+        <a href="#" onclick="logout()" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-500 hover:bg-red-50">🚪 Log out</a>
       </div>
-
     </aside>
 
-    <!-- MAIN CONTENT -->
+    <!-- MAIN -->
     <main class="flex-1 p-6 overflow-auto">
 
-      <!-- GREETING -->
       <div class="mb-6">
-        <h1 class="text-xl font-semibold text-gray-900">Hello, John Doe 👋</h1>
+        <h1 class="text-xl font-semibold text-gray-900">Hello, <span data-firstname></span> 👋</h1>
         <p class="text-sm text-gray-500">Here's what's happening with your applications</p>
       </div>
 
-      <!-- STATS CARDS -->
+      <!-- STATS -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
         <div class="bg-white border border-gray-200 rounded-xl p-4">
           <p class="text-xs text-gray-400 mb-1">Applications sent</p>
@@ -97,20 +71,14 @@
           <p class="text-xs text-blue-600 mt-0.5">Add your resume and skills to get better job matches</p>
           <div class="flex items-center gap-2 mt-2">
             <div class="h-1.5 w-40 bg-blue-200 rounded-full overflow-hidden">
-              <div class="h-full bg-blue-500 rounded-full" style="width: 60%"></div>
+              <div class="h-full bg-blue-500 rounded-full" style="width:60%"></div>
             </div>
             <span class="text-xs text-blue-600 font-medium">60% complete</span>
           </div>
         </div>
         <div class="flex items-center gap-2">
-          <a href="profile.html"
-            class="text-xs bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">
-            Complete profile
-          </a>
-          <button onclick="document.getElementById('profile-banner').remove()"
-            class="text-blue-400 hover:text-blue-600 text-lg leading-none">
-            ×
-          </button>
+          <a href="profile.html" class="text-xs bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Complete profile</a>
+          <button onclick="document.getElementById('profile-banner').remove()" class="text-blue-400 hover:text-blue-600 text-lg">×</button>
         </div>
       </div>
 
@@ -123,14 +91,9 @@
             <a href="browse-jobs.html" class="text-xs text-blue-600 hover:underline">View all →</a>
           </div>
           <div class="space-y-3">
-
-            <div class="bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 transition-colors cursor-pointer"
-              onclick="window.location.href='job-detail.html'">
+            <div onclick="window.location.href='job-detail.html'" class="bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 transition-colors cursor-pointer">
               <div class="flex justify-between items-start mb-2">
-                <div>
-                  <p class="text-sm font-medium text-gray-900">Frontend Developer</p>
-                  <p class="text-xs text-gray-500">Infosys · Bangalore</p>
-                </div>
+                <div><p class="text-sm font-medium text-gray-900">Frontend Developer</p><p class="text-xs text-gray-500">Infosys · Bangalore</p></div>
                 <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">New</span>
               </div>
               <div class="flex gap-1.5 mb-3">
@@ -143,14 +106,9 @@
                 <span class="text-xs text-green-600 font-medium">✦ 80% match</span>
               </div>
             </div>
-
-            <div class="bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 transition-colors cursor-pointer"
-              onclick="window.location.href='job-detail.html'">
+            <div onclick="window.location.href='job-detail.html'" class="bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 transition-colors cursor-pointer">
               <div class="flex justify-between items-start mb-2">
-                <div>
-                  <p class="text-sm font-medium text-gray-900">React Native Developer</p>
-                  <p class="text-xs text-gray-500">Capgemini · Bangalore</p>
-                </div>
+                <div><p class="text-sm font-medium text-gray-900">React Native Developer</p><p class="text-xs text-gray-500">Capgemini · Bangalore</p></div>
                 <span class="text-xs bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full">Hot</span>
               </div>
               <div class="flex gap-1.5 mb-3">
@@ -163,14 +121,9 @@
                 <span class="text-xs text-green-600 font-medium">✦ 67% match</span>
               </div>
             </div>
-
-            <div class="bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 transition-colors cursor-pointer"
-              onclick="window.location.href='job-detail.html'">
+            <div onclick="window.location.href='job-detail.html'" class="bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 transition-colors cursor-pointer">
               <div class="flex justify-between items-start mb-2">
-                <div>
-                  <p class="text-sm font-medium text-gray-900">Frontend Intern</p>
-                  <p class="text-xs text-gray-500">Zoho · Chennai</p>
-                </div>
+                <div><p class="text-sm font-medium text-gray-900">Frontend Intern</p><p class="text-xs text-gray-500">Zoho · Chennai</p></div>
                 <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">New</span>
               </div>
               <div class="flex gap-1.5 mb-3">
@@ -183,7 +136,6 @@
                 <span class="text-xs text-green-600 font-medium">✦ 100% match</span>
               </div>
             </div>
-
           </div>
         </div>
 
@@ -194,47 +146,22 @@
             <a href="my-applications.html" class="text-xs text-blue-600 hover:underline">View all →</a>
           </div>
           <div class="space-y-3">
-
-            <div class="bg-white border border-gray-200 rounded-xl p-4">
-              <div class="flex justify-between items-start">
-                <div>
-                  <p class="text-sm font-medium text-gray-900">Frontend Developer</p>
-                  <p class="text-xs text-gray-500">Infosys · Applied Jun 28</p>
-                </div>
-                <span class="text-xs bg-green-100 text-green-700 px-2.5 py-1 rounded-full font-medium">Selected</span>
-              </div>
+            <div class="bg-white border border-gray-200 rounded-xl p-4 flex justify-between items-start">
+              <div><p class="text-sm font-medium text-gray-900">Frontend Developer</p><p class="text-xs text-gray-500">Infosys · Applied Jun 28</p></div>
+              <span class="text-xs bg-green-100 text-green-700 px-2.5 py-1 rounded-full font-medium">Selected</span>
             </div>
-
-            <div class="bg-white border border-gray-200 rounded-xl p-4">
-              <div class="flex justify-between items-start">
-                <div>
-                  <p class="text-sm font-medium text-gray-900">Backend Developer</p>
-                  <p class="text-xs text-gray-500">TCS · Applied Jun 25</p>
-                </div>
-                <span class="text-xs bg-yellow-100 text-yellow-700 px-2.5 py-1 rounded-full font-medium">Under review</span>
-              </div>
+            <div class="bg-white border border-gray-200 rounded-xl p-4 flex justify-between items-start">
+              <div><p class="text-sm font-medium text-gray-900">Backend Developer</p><p class="text-xs text-gray-500">TCS · Applied Jun 25</p></div>
+              <span class="text-xs bg-yellow-100 text-yellow-700 px-2.5 py-1 rounded-full font-medium">Under review</span>
             </div>
-
-            <div class="bg-white border border-gray-200 rounded-xl p-4">
-              <div class="flex justify-between items-start">
-                <div>
-                  <p class="text-sm font-medium text-gray-900">Full Stack Developer</p>
-                  <p class="text-xs text-gray-500">HCL Tech · Applied Jun 20</p>
-                </div>
-                <span class="text-xs bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full font-medium">Applied</span>
-              </div>
+            <div class="bg-white border border-gray-200 rounded-xl p-4 flex justify-between items-start">
+              <div><p class="text-sm font-medium text-gray-900">Full Stack Developer</p><p class="text-xs text-gray-500">HCL Tech · Applied Jun 20</p></div>
+              <span class="text-xs bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full font-medium">Applied</span>
             </div>
-
-            <div class="bg-white border border-gray-200 rounded-xl p-4">
-              <div class="flex justify-between items-start">
-                <div>
-                  <p class="text-sm font-medium text-gray-900">UI/UX Designer</p>
-                  <p class="text-xs text-gray-500">Wipro · Applied Jun 18</p>
-                </div>
-                <span class="text-xs bg-red-100 text-red-500 px-2.5 py-1 rounded-full font-medium">Rejected</span>
-              </div>
+            <div class="bg-white border border-gray-200 rounded-xl p-4 flex justify-between items-start">
+              <div><p class="text-sm font-medium text-gray-900">UI/UX Designer</p><p class="text-xs text-gray-500">Wipro · Applied Jun 18</p></div>
+              <span class="text-xs bg-red-100 text-red-500 px-2.5 py-1 rounded-full font-medium">Rejected</span>
             </div>
-
           </div>
         </div>
 
@@ -249,14 +176,11 @@
             <p class="text-sm text-gray-600">Frontend Developer at <span class="font-medium">Infosys</span></p>
             <p class="text-xs text-gray-400 mt-1">Thursday, 10 July 2025 · 11:00 AM · Google Meet</p>
           </div>
-          <span class="text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full font-medium flex-shrink-0">
-            In 2 days
-          </span>
+          <span class="text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full font-medium flex-shrink-0">In 2 days</span>
         </div>
       </div>
 
     </main>
   </div>
-
 </body>
 </html>
