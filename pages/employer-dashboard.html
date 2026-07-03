@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Employer Dashboard – HireConnect</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+
+  <div class="flex min-h-screen">
+
+    <!-- SIDEBAR -->
+    <aside class="w-56 bg-white border-r border-gray-200 flex flex-col">
+      <div class="px-5 py-4 border-b border-gray-100">
+        <a href="../index.html" class="text-blue-600 font-semibold text-lg">HireConnect</a>
+      </div>
+      <div class="px-5 py-4 border-b border-gray-100">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-green-100 text-green-700 text-sm font-semibold flex items-center justify-center">
+            IN
+          </div>
+          <div>
+            <p class="text-sm font-medium text-gray-900">Infosys</p>
+            <p class="text-xs text-gray-400">Employer</p>
+          </div>
+        </div>
+      </div>
+      <nav class="flex-1 px-3 py-4 space-y-1">
+        <a href="employer-dashboard.html"
+          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm bg-blue-50 text-blue-600 font-medium">
+          🏠 Dashboard
+        </a>
+        <a href="post-job.html"
+          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">
+          ➕ Post a Job
+        </a>
+        <a href="#" onclick="showSection('manage')"
+          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">
+          📋 Manage Jobs
+        </a>
+        <a href="#" onclick="showSection('applicants')"
+          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">
+          👥 Applicants
+        </a>
+      </nav>
+      <div class="px-3 py-4 border-t border-gray-100">
+        <a href="../login.html"
+          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-500 hover:bg-red-50">
+          🚪 Log out
+        </a>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 p-6 overflow-auto">
+
+      <!-- HEADER -->
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-xl font-semibold text-gray-900">Welcome, Infosys 👋</h1>
+          <p class="text-sm text-gray-500">Manage your job postings and applicants</p>
+        </div>
+        <a href="post-job.html"
+          class="bg-blue-600 text-white text-sm px-4 py-2.5 rounded-lg hover:bg-blue-700 font-medium">
+          ➕ Post a new job
+        </a>
+      </div>
+
+      <!-- STATS -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+        <div class="bg-white border border-gray-200 rounded-xl p-4">
+          <p class="text-xs text-gray-400 mb-1">Jobs posted</p>
+          <p class="text-2xl font-semibold text-blue-600">8</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-4">
+          <p class="text-xs text-gray-400 mb-1">Total applicants</p>
+          <p class="text-2xl font-semibold text-gray-800">35</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-4">
+          <p class="text-xs text-gray-400 mb-1">Shortlisted</p>
+          <p class="text-2xl font-semibold text-green-500">4</p>
+        </div>
+        <div class="bg-white border border-gray-200 rounded-xl p-4">
+          <p class="text-xs text-gray-400 mb-1">Interviews scheduled</p>
+          <p class="text-2xl font-semibold text-purple-500">2</p>
+        </div>
+      </div>
+
+      <!-- SECTION: MANAGE JOBS -->
+      <div id="section-manage">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-base font-semibold text-gray-800">Job listings</h2>
+          <div class="flex gap-2">
+            <select id="status-filter" onchange="renderJobs()"
+              class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 bg-white text-gray-600 focus:outline-none">
+              <option value="all">All status</option>
+              <option value="active">Active</option>
+              <option value="paused">Paused</option>
+              <option value="closed">Closed</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="jobs-list" class="space-y-3 mb-10"></div>
+      </div>
+
+      <!-- SECTION: APPLICANTS -->
+      <div id="section-applicants">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-base font-semibold text-gray-800">Applicants</h2>
+          <div class="flex gap-2">
+            <select id="job-filter" onchange="renderApplicants()"
+              class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 bg-white text-gray-600 focus:outline-none">
+              <option value="all">All jobs</option>
+              <option value="1">Frontend Developer</option>
+              <option value="2">Backend Developer</option>
+              <option value="3">UI/UX Designer</option>
+            </select>
+            <select id="app-status-filter" onchange="renderApplicants()"
+              class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 bg-white text-gray-600 focus:outline-none">
+              <option value="all">All status</option>
+              <option value="applied">Applied</option>
+              <option value="review">Under review</option>
+              <option value="interview">Interview</option>
+              <option value="selected">Selected</option>
+              <option value="rejected">Rejected</option>
+            </select>
+          </div>
+        </div>
+        <div id="applicants-list" class="space-y-3"></div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- EDIT JOB MODAL -->
+  <div id="edit-modal"
+    class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 px-4">
+    <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="text-base font-semibold">Edit job</h2>
+        <button onclick="closeEditModal()" class="text-gray-400 hover:text-gray-700 text-xl">×</button>
+      </div>
+      <div class="space-y-3">
+        <div>
+          <label class="text-xs text-gray-500 mb-1 block">Job title</label>
+          <input id="edit-title" type="text"
+            class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
+        </div>
+        <div>
+          <label class="text-xs text-gray-500 mb-1 block">Location</label>
+          <input id="edit-location" type="text"
+            class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
+        </div>
+        <div>
+          <label class="text-xs text-gray-500 mb-1 block">Salary</label>
+          <input id="edit-salary" type="text"
+            class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-300" />
+        </div>
+        <div>
+          <label class="text-xs text-gray-500 mb-1 block">Status</label>
+          <select id="edit-status"
+            class="w-full px-3 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-300">
+            <option value="active">Active</option>
+            <option value="paused">Paused</option>
+            <option value="closed">Closed</option>
+          </select>
+        </div>
+      </div>
+      <div class="flex gap-3 mt-5">
+        <button onclick="saveEdit()"
+          class="flex-1 bg-blue-600 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700">
+          Save changes
+        </button>
+        <button onclick="closeEditModal()"
+          class="flex-1 border border-gray-200 text-gray-600 py-2.5 rounded-lg text-sm hover:bg-gray-50">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    // ── Data ──
+    // Later replace with: fetch('http://localhost:5000/api/jobs/employer')
+    let jobs = [
+      { id: 1, title: 'Frontend Developer', location: 'Bangalore', type: 'Full-time', salary: '₹8–12 LPA', applicants: 12, status: 'active',  posted: 'Jun 20, 2025' },
+      { id: 2, title: 'Backend Developer',  location: 'Mumbai',    type: 'Full-time', salary: '₹10–14 LPA',applicants: 18, status: 'active',  posted: 'Jun 15, 2025' },
+      { id: 3, title: 'UI/UX Designer',     location: 'Pune',      type: 'Full-time', salary: '₹7–9 LPA',  applicants: 5,  status: 'paused',  posted: 'Jun 10, 2025' },
+      { id: 4, title: 'DevOps Engineer',    location: 'Bangalore', type: 'Remote',    salary: '₹14–18 LPA',applicants: 0,  status: 'closed',  posted: 'May 30, 2025' },
+    ]
+
+    // Later replace with: fetch('http://localhost:5000/api/applications/employer')
+    let applicants = [
+      { id: 1, name: 'Krishika Sharma',  jobId: 1, jobTitle: 'Frontend Developer', appliedDate: 'Jun 28',  status: 'selected', skills: ['React','Tailwind','JS'] },
+      { id: 2, name: 'Meemansa Sharma',  jobId: 1, jobTitle: 'Frontend Developer', appliedDate: 'Jun 27',  status: 'review',   skills: ['React','CSS','HTML'] },
+      { id: 3, name: 'Harsh Thakur',     jobId: 2, jobTitle: 'Backend Developer',  appliedDate: 'Jun 26',  status: 'interview',skills: ['Node.js','MongoDB','Express'] },
+      { id: 4, name: 'Rahul Verma',      jobId: 2, jobTitle: 'Backend Developer',  appliedDate: 'Jun 24',  status: 'applied',  skills: ['Node.js','SQL'] },
+      { id: 5, name: 'Priya Singh',      jobId: 3, jobTitle: 'UI/UX Designer',     appliedDate: 'Jun 22',  status: 'rejected', skills: ['Figma','Adobe XD'] },
+      { id: 6, name: 'Ankit Joshi',      jobId: 1, jobTitle: 'Frontend Developer', appliedDate: 'Jun 20',  status: 'applied',  skills: ['React','JS','Redux'] },
+    ]
+
+    const statusColors = {
+      active:    { bg: 'bg-green-100',  text: 'text-green-700'  },
+      paused:    { bg: 'bg-yellow-100', text: 'text-yellow-700' },
+      closed:    { bg: 'bg-gray-100',   text: 'text-gray-500'   },
+      applied:   { bg: 'bg-blue-100',   text: 'text-blue-700'   },
+      review:    { bg: 'bg-yellow-100', text: 'text-yellow-700' },
+      interview: { bg: 'bg-purple-100', text: 'text-purple-700' },
+      selected:  { bg: 'bg-green-100',  text: 'text-green-700'  },
+      rejected:  { bg: 'bg-red-100',    text: 'text-red-500'    },
+    }
+
+    let editingId = null
+
+    // ── Render jobs ──
+    function renderJobs() {
+      const filter = document.getElementById('status-filter').value
+      const filtered = jobs.filter(j => filter === 'all' || j.status === filter)
+      const list = document.getElementById('jobs-list')
+
+      if (!filtered.length) {
+        list.innerHTML = `<p class="text-center text-gray-400 py-10">No jobs found.</p>`
+        return
+      }
+
+      list.innerHTML = filtered.map(job => {
+        const s = statusColors[job.status]
+        return `
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <div>
+              <div class="flex items-center gap-2 mb-1">
+                <h3 class="text-sm font-semibold text-gray-900">${job.title}</h3>
+                <span class="text-xs px-2.5 py-0.5 rounded-full font-medium ${s.bg} ${s.text}">
+                  ${job.status.charAt(0).toUpperCase() + job.status.slice(1)}
+                </span>
+              </div>
+              <p class="text-xs text-gray-500">${job.location} &nbsp;·&nbsp; ${job.type} &nbsp;·&nbsp; ${job.salary}</p>
+              <p class="text-xs text-gray-400 mt-0.5">Posted ${job.posted}</p>
+            </div>
+            <div class="text-right flex-shrink-0">
+              <p class="text-lg font-semibold text-gray-800">${job.applicants}</p>
+              <p class="text-xs text-gray-400">applicants</p>
+            </div>
+          </div>
+
+          <!-- ACTIONS -->
+          <div class="mt-4 pt-4 border-t border-gray-100 flex items-center gap-2 flex-wrap">
+            <button onclick="showSection('applicants'); setJobFilter(${job.id})"
+              class="text-xs bg-blue-50 border border-blue-200 text-blue-700 px-3 py-1.5 rounded-lg hover:bg-blue-100">
+              👥 View applicants
+            </button>
+            <button onclick="openEditModal(${job.id})"
+              class="text-xs border border-gray-200 text-gray-600 px-3 py-1.5 rounded-lg hover:bg-gray-50">
+              ✏️ Edit
+            </button>
+            <button onclick="toggleStatus(${job.id})"
+              class="text-xs border border-gray-200 text-gray-600 px-3 py-1.5 rounded-lg hover:bg-gray-50">
+              ${job.status === 'active' ? '⏸ Pause' : '▶️ Activate'}
+            </button>
+            <button onclick="deleteJob(${job.id})"
+              class="text-xs border border-red-200 text-red-500 px-3 py-1.5 rounded-lg hover:bg-red-50 ml-auto">
+              🗑 Delete
+            </button>
+          </div>
+        </div>`
+      }).join('')
+    }
+
+    // ── Render applicants ──
+    function renderApplicants() {
+      const jobFilter = document.getElementById('job-filter').value
+      const appFilter = document.getElementById('app-status-filter').value
+
+      const filtered = applicants.filter(a => {
+        const matchJob = jobFilter === 'all' || a.jobId === parseInt(jobFilter)
+        const matchStatus = appFilter === 'all' || a.status === appFilter
+        return matchJob && matchStatus
+      })
+
+      const list = document.getElementById('applicants-list')
+
+      if (!filtered.length) {
+        list.innerHTML = `<p class="text-center text-gray-400 py-10">No applicants found.</p>`
+        return
+      }
+
+      list.innerHTML = filtered.map(app => {
+        const s = statusColors[app.status]
+        return `
+        <div class="bg-white border border-gray-200 rounded-xl p-5">
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+
+            <!-- CANDIDATE INFO -->
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold flex items-center justify-center flex-shrink-0">
+                ${app.name.split(' ').map(n => n[0]).join('').slice(0,2)}
+              </div>
+              <div>
+                <p class="text-sm font-semibold text-gray-900">${app.name}</p>
+                <p class="text-xs text-gray-500">${app.jobTitle} &nbsp;·&nbsp; Applied ${app.appliedDate}</p>
+                <div class="flex gap-1.5 mt-1.5 flex-wrap">
+                  ${app.skills.map(s => `
+                    <span class="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded">${s}</span>
+                  `).join('')}
+                </div>
+              </div>
+            </div>
+
+            <!-- STATUS BADGE -->
+            <span class="text-xs font-medium px-3 py-1 rounded-full flex-shrink-0 ${s.bg} ${s.text}">
+              ${app.status.charAt(0).toUpperCase() + app.status.slice(1)}
+            </span>
+          </div>
+
+          <!-- ACTIONS -->
+          <div class="mt-4 pt-4 border-t border-gray-100 flex items-center gap-2 flex-wrap">
+            <button
+              class="text-xs border border-gray-200 text-gray-600 px-3 py-1.5 rounded-lg hover:bg-gray-50">
+              📄 View resume
+            </button>
+            <div class="flex items-center gap-2 ml-auto flex-wrap">
+              <label class="text-xs text-gray-500">Change status</label>
+              <select onchange="changeAppStatus(${app.id}, this.value)"
+                class="text-xs border border-gray-200 rounded-lg px-2 py-1.5 bg-white text-gray-600 focus:outline-none">
+                <option value="applied"   ${app.status==='applied'  ?'selected':''}>Applied</option>
+                <option value="review"    ${app.status==='review'   ?'selected':''}>Under review</option>
+                <option value="interview" ${app.status==='interview'?'selected':''}>Interview</option>
+                <option value="selected"  ${app.status==='selected' ?'selected':''}>Selected</option>
+                <option value="rejected"  ${app.status==='rejected' ?'selected':''}>Rejected</option>
+              </select>
+            </div>
+          </div>
+        </div>`
+      }).join('')
+    }
+
+    // ── Job actions ──
+    function toggleStatus(id) {
+      const job = jobs.find(j => j.id === id)
+      if (!job) return
+      job.status = job.status === 'active' ? 'paused' : 'active'
+      renderJobs()
+    }
+
+    function deleteJob(id) {
+      if (!confirm('Delete this job posting?')) return
+      jobs = jobs.filter(j => j.id !== id)
+      renderJobs()
+    }
+
+    // ── Edit modal ──
+    function openEditModal(id) {
+      editingId = id
+      const job = jobs.find(j => j.id === id)
+      if (!job) return
+      document.getElementById('edit-title').value    = job.title
+      document.getElementById('edit-location').value = job.location
+      document.getElementById('edit-salary').value   = job.salary
+      document.getElementById('edit-status').value   = job.status
+      document.getElementById('edit-modal').classList.remove('hidden')
+    }
+
+    function closeEditModal() {
+      document.getElementById('edit-modal').classList.add('hidden')
+      editingId = null
+    }
+
+    function saveEdit() {
+      const job = jobs.find(j => j.id === editingId)
+      if (!job) return
+      job.title    = document.getElementById('edit-title').value
+      job.location = document.getElementById('edit-location').value
+      job.salary   = document.getElementById('edit-salary').value
+      job.status   = document.getElementById('edit-status').value
+      closeEditModal()
+      renderJobs()
+    }
+
+    // ── Applicant status change ──
+    function changeAppStatus(id, newStatus) {
+      const app = applicants.find(a => a.id === id)
+      if (app) app.status = newStatus
+      renderApplicants()
+
+      // Later: call backend to update status
+      // await fetch(`http://localhost:5000/api/applications/${id}/status`, {
+      //   method: 'PUT',
+      //   headers: { 'Content-Type': 'application/json',
+      //              Authorization: `Bearer ${localStorage.getItem('token')}` },
+      //   body: JSON.stringify({ status: newStatus })
+      // })
+    }
+
+    // ── Section switcher ──
+    function showSection(section) {
+      document.getElementById('section-manage').style.display     = section === 'manage'     ? 'block' : 'none'
+      document.getElementById('section-applicants').style.display = section === 'applicants' ? 'block' : 'none'
+    }
+
+    function setJobFilter(jobId) {
+      document.getElementById('job-filter').value = jobId
+      renderApplicants()
+    }
+
+    // Close edit modal on overlay click
+    document.getElementById('edit-modal').addEventListener('click', function(e) {
+      if (e.target === this) closeEditModal()
+    })
+
+    // Initial render
+    renderJobs()
+    renderApplicants()
+    showSection('manage')
+
+  </script>
+
+</body>
+</html>
