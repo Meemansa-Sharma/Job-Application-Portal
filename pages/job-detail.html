@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Job Detail – HireConnect</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-50 min-h-screen">
 
   <!-- NAVBAR -->
@@ -14,14 +16,14 @@
     <div class="flex gap-3 items-center">
       <a href="browse-jobs.html" class="text-sm text-gray-600 hover:text-blue-600">Browse Jobs</a>
       <a href="seeker-dashboard.html" class="text-sm text-gray-600 hover:text-blue-600">Dashboard</a>
-      <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 text-xs font-medium flex items-center justify-center">K</div>
+      <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 text-xs font-medium flex items-center justify-center">K
+      </div>
     </div>
   </nav>
 
   <!-- BACK BUTTON -->
   <div class="max-w-4xl mx-auto px-6 pt-5">
-    <a href="browse-jobs.html"
-      class="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-blue-600 mb-4">
+    <a href="browse-jobs.html" class="inline-flex items-center gap-1 text-sm text-gray-500 hover:text-blue-600 mb-4">
       ← Back to jobs
     </a>
   </div>
@@ -36,7 +38,8 @@
       <div class="bg-white border border-gray-200 rounded-xl p-6 mb-4">
         <div class="flex items-start justify-between gap-4 mb-4">
           <div class="flex items-start gap-4">
-            <div class="w-14 h-14 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center text-sm font-semibold text-gray-500">
+            <div
+              class="w-14 h-14 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center text-sm font-semibold text-gray-500">
               IN
             </div>
             <div>
@@ -54,7 +57,8 @@
         <!-- SKILL TAGS -->
         <div class="flex flex-wrap gap-2 mb-5">
           <span class="text-xs bg-green-50 text-green-700 border border-green-200 px-3 py-1 rounded">✓ React</span>
-          <span class="text-xs bg-green-50 text-green-700 border border-green-200 px-3 py-1 rounded">✓ Tailwind CSS</span>
+          <span class="text-xs bg-green-50 text-green-700 border border-green-200 px-3 py-1 rounded">✓ Tailwind
+            CSS</span>
           <span class="text-xs bg-green-50 text-green-700 border border-green-200 px-3 py-1 rounded">✓ JavaScript</span>
           <span class="text-xs bg-gray-100 text-gray-500 px-3 py-1 rounded">REST APIs</span>
           <span class="text-xs bg-gray-100 text-gray-500 px-3 py-1 rounded">Git</span>
@@ -72,8 +76,10 @@
         </div>
 
         <!-- SUCCESS MESSAGE (hidden by default) -->
-        <div id="apply-success" class="hidden mt-4 bg-green-50 border border-green-200 text-green-700 text-sm px-4 py-3 rounded-lg">
-          ✅ Application submitted! You can track it in <a href="my-applications.html" class="underline font-medium">My Applications</a>.
+        <div id="apply-success"
+          class="hidden mt-4 bg-green-50 border border-green-200 text-green-700 text-sm px-4 py-3 rounded-lg">
+          ✅ Application submitted! You can track it in <a href="my-applications.html" class="underline font-medium">My
+            Applications</a>.
         </div>
 
       </div>
@@ -144,80 +150,26 @@
       <div class="bg-white border border-gray-200 rounded-xl p-5 mb-4">
         <h3 class="text-sm font-semibold mb-3">Your skill match</h3>
 
-        <div class="flex items-center gap-3 mb-4">
-          <span class="text-3xl font-semibold text-blue-600">67%</span>
-          <div class="flex-1">
-            <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
-              <div class="h-full bg-blue-500 rounded-full" style="width: 67%"></div>
+        <div id="match-loading" class="text-xs text-gray-400">Analyzing your fit with AI…</div>
+
+        <div id="match-content" class="hidden">
+          <div class="flex items-center gap-3 mb-4">
+            <span id="match-score" class="text-3xl font-semibold text-blue-600">--%</span>
+            <div class="flex-1">
+              <div class="h-2 bg-gray-100 rounded-full overflow-hidden">
+                <div id="match-bar" class="h-full bg-blue-500 rounded-full" style="width: 0%"></div>
+              </div>
+              <p id="match-count" class="text-xs text-gray-400 mt-1"></p>
             </div>
-            <p class="text-xs text-gray-400 mt-1">4 of 5 skills matched</p>
+          </div>
+          <div id="match-skills" class="space-y-2"></div>
+          <div class="mt-4 pt-3 border-t border-gray-100">
+            <p id="match-summary" class="text-xs text-gray-600 mb-2"></p>
+            <p id="match-tip" class="text-xs text-blue-600"></p>
           </div>
         </div>
 
-        <div class="space-y-2">
-          <div class="flex items-center justify-between text-xs">
-            <span class="text-gray-600">React</span>
-            <span class="text-green-600 font-medium">✓ Matched</span>
-          </div>
-          <div class="flex items-center justify-between text-xs">
-            <span class="text-gray-600">Tailwind CSS</span>
-            <span class="text-green-600 font-medium">✓ Matched</span>
-          </div>
-          <div class="flex items-center justify-between text-xs">
-            <span class="text-gray-600">JavaScript</span>
-            <span class="text-green-600 font-medium">✓ Matched</span>
-          </div>
-          <div class="flex items-center justify-between text-xs">
-            <span class="text-gray-600">REST APIs</span>
-            <span class="text-green-600 font-medium">✓ Matched</span>
-          </div>
-          <div class="flex items-center justify-between text-xs">
-            <span class="text-gray-600">Git</span>
-            <span class="text-red-400">✗ Missing</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- JOB OVERVIEW CARD -->
-      <div class="bg-white border border-gray-200 rounded-xl p-5 mb-4">
-        <h3 class="text-sm font-semibold mb-3">Job overview</h3>
-        <div class="space-y-3 text-xs text-gray-600">
-          <div class="flex items-start gap-2">
-            <span class="text-base">📅</span>
-            <div>
-              <p class="text-gray-400">Deadline</p>
-              <p class="font-medium text-gray-700">30 July 2025</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-2">
-            <span class="text-base">🎓</span>
-            <div>
-              <p class="text-gray-400">Experience</p>
-              <p class="font-medium text-gray-700">Fresher / 0–2 years</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-2">
-            <span class="text-base">💰</span>
-            <div>
-              <p class="text-gray-400">Salary</p>
-              <p class="font-medium text-gray-700">₹8–12 LPA</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-2">
-            <span class="text-base">📍</span>
-            <div>
-              <p class="text-gray-400">Location</p>
-              <p class="font-medium text-gray-700">Bangalore, India</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-2">
-            <span class="text-base">🏢</span>
-            <div>
-              <p class="text-gray-400">Job type</p>
-              <p class="font-medium text-gray-700">Full-time</p>
-            </div>
-          </div>
-        </div>
+        <div id="match-error" class="hidden text-xs text-red-500">Couldn't load AI match right now.</div>
       </div>
 
       <!-- SIMILAR JOBS -->
@@ -243,13 +195,111 @@
   </div>
 
   <script>
+    const jobId = new URLSearchParams(window.location.search).get('id')
+
+    async function loadSkillMatch() {
+      const loadingEl = document.getElementById('match-loading')
+      const contentEl = document.getElementById('match-content')
+      const errorEl = document.getElementById('match-error')
+      const token = localStorage.getItem('token')
+
+      if (!token) {
+        loadingEl.textContent = 'Log in as a job seeker to see your AI skill match.'
+        return
+      }
+
+      try {
+        const res = await fetch(`http://localhost:5000/api/jobs/${jobId}/ai-match`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }
+        })
+        if (!res.ok) throw new Error('failed')
+        const data = await res.json()
+
+        document.getElementById('match-score').textContent = `${data.score}%`
+        document.getElementById('match-bar').style.width = `${data.score}%`
+        document.getElementById('match-count').textContent =
+          `${data.matchedSkills.length} of ${data.matchedSkills.length + data.missingSkills.length} skills matched`
+
+        const skillsEl = document.getElementById('match-skills')
+        skillsEl.innerHTML = ''
+        data.matchedSkills.forEach(s => skillsEl.innerHTML += `<div class="flex justify-between text-xs"><span class="text-gray-600">${s}</span><span class="text-green-600 font-medium">✓ Matched</span></div>`)
+        data.missingSkills.forEach(s => skillsEl.innerHTML += `<div class="flex justify-between text-xs"><span class="text-gray-600">${s}</span><span class="text-red-400">✗ Missing</span></div>`)
+
+        document.getElementById('match-summary').textContent = data.summary
+        document.getElementById('match-tip').textContent = `💡 ${data.tip}`
+
+        loadingEl.classList.add('hidden')
+        contentEl.classList.remove('hidden')
+      } catch (err) {
+        loadingEl.classList.add('hidden')
+        errorEl.classList.remove('hidden')
+      }
+    }
+
+    loadSkillMatch()
     function handleApply() {
-      // Later replace with real API call:
-      // await fetch('http://localhost:5000/api/applications', {
-      //   method: 'POST',
-      //   headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
-      //   body: JSON.stringify({ jobId: jobId })
-      // })
+      // Fill in with the real job id (e.g. from the URL: job-detail.html?id=123)
+      const jobId = new URLSearchParams(window.location.search).get('id')
+
+      async function loadSkillMatch() {
+        const loadingEl = document.getElementById('match-loading')
+        const contentEl = document.getElementById('match-content')
+        const errorEl = document.getElementById('match-error')
+
+        try {
+          const res = await fetch(`http://localhost:5000/api/jobs/${jobId}/skill-match`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+          })
+
+          if (!res.ok) throw new Error('Request failed')
+
+          const data = await res.json()
+          // Expected shape (from groqService.js):
+          // { score, matchedSkills, missingSkills, summary, tip }
+
+          // Fill score + bar
+          document.getElementById('match-score').textContent = `${data.score}%`
+          document.getElementById('match-bar').style.width = `${data.score}%`
+          document.getElementById('match-count').textContent =
+            `${data.matchedSkills.length} of ${data.matchedSkills.length + data.missingSkills.length} skills matched`
+
+          // Build the skill list (matched = green, missing = red)
+          const skillsEl = document.getElementById('match-skills')
+          skillsEl.innerHTML = '' // clear any old content
+
+          data.matchedSkills.forEach(skill => {
+            skillsEl.innerHTML += `
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-gray-600">${skill}</span>
+          <span class="text-green-600 font-medium">✓ Matched</span>
+        </div>`
+          })
+          data.missingSkills.forEach(skill => {
+            skillsEl.innerHTML += `
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-gray-600">${skill}</span>
+          <span class="text-red-400">✗ Missing</span>
+        </div>`
+          })
+
+          // AI's written feedback
+          document.getElementById('match-summary').textContent = data.summary
+          document.getElementById('match-tip').textContent = `💡 ${data.tip}`
+
+          loadingEl.classList.add('hidden')
+          contentEl.classList.remove('hidden')
+
+        } catch (err) {
+          loadingEl.classList.add('hidden')
+          errorEl.classList.remove('hidden')
+        }
+      }
+
+      // Run as soon as the page loads
+      loadSkillMatch()
       document.getElementById('apply-success').classList.remove('hidden')
       document.querySelector('button').disabled = true
       document.querySelector('button').textContent = 'Applied ✓'
@@ -258,4 +308,5 @@
   </script>
 
 </body>
+
 </html>
