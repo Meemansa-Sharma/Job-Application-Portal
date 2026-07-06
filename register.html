@@ -113,79 +113,96 @@
   </div>
 
   <script>
-    let selectedRole = 'seeker'
+  let selectedRole = 'seeker'
 
-    function setRole(role) {
-      selectedRole = role
-      const seekerTab = document.getElementById('tab-seeker')
-      const employerTab = document.getElementById('tab-employer')
-      const companyField = document.getElementById('company-field')
+  function setRole(role) {
+    selectedRole = role
+    const seekerTab = document.getElementById('tab-seeker')
+    const employerTab = document.getElementById('tab-employer')
+    const companyField = document.getElementById('company-field')
 
-      if (role === 'seeker') {
-        seekerTab.classList.add('bg-white', 'font-medium', 'text-blue-600', 'shadow-sm')
-        seekerTab.classList.remove('text-gray-500')
-        employerTab.classList.remove('bg-white', 'font-medium', 'text-blue-600', 'shadow-sm')
-        employerTab.classList.add('text-gray-500')
-        companyField.classList.add('hidden')
-      } else {
-        employerTab.classList.add('bg-white', 'font-medium', 'text-blue-600', 'shadow-sm')
-        employerTab.classList.remove('text-gray-500')
-        seekerTab.classList.remove('bg-white', 'font-medium', 'text-blue-600', 'shadow-sm')
-        seekerTab.classList.add('text-gray-500')
-        companyField.classList.remove('hidden')
-      }
+    if (role === 'seeker') {
+      seekerTab.classList.add('bg-white', 'font-medium', 'text-blue-600', 'shadow-sm')
+      seekerTab.classList.remove('text-gray-500')
+      employerTab.classList.remove('bg-white', 'font-medium', 'text-blue-600', 'shadow-sm')
+      employerTab.classList.add('text-gray-500')
+      companyField.classList.add('hidden')
+    } else {
+      employerTab.classList.add('bg-white', 'font-medium', 'text-blue-600', 'shadow-sm')
+      employerTab.classList.remove('text-gray-500')
+      seekerTab.classList.remove('bg-white', 'font-medium', 'text-blue-600', 'shadow-sm')
+      seekerTab.classList.add('text-gray-500')
+      companyField.classList.remove('hidden')
+    }
+  }
+
+  async function handleRegister(e) {
+    e.preventDefault()
+
+    const firstname = document.getElementById('firstname').value.trim()
+    const lastname  = document.getElementById('lastname').value.trim()
+    const email     = document.getElementById('email').value.trim()
+    const phone     = document.getElementById('phone').value.trim()
+    const password  = document.getElementById('password').value
+    const confirm   = document.getElementById('confirm-password').value
+    const company   = document.getElementById('company').value.trim()
+    const errorMsg   = document.getElementById('error-msg')
+    const successMsg = document.getElementById('success-msg')
+
+    errorMsg.classList.add('hidden')
+    successMsg.classList.add('hidden')
+
+    if (password.length < 8) {
+      errorMsg.textContent = 'Password must be at least 8 characters.'
+      errorMsg.classList.remove('hidden')
+      return
     }
 
-    function handleRegister(e) {
-      e.preventDefault()
+    if (password !== confirm) {
+      errorMsg.textContent = 'Passwords do not match.'
+      errorMsg.classList.remove('hidden')
+      return
+    }
 
-      const firstname = document.getElementById('firstname').value.trim()
-      const lastname  = document.getElementById('lastname').value.trim()
-      const email     = document.getElementById('email').value.trim()
-      const phone     = document.getElementById('phone').value.trim()
-      const password  = document.getElementById('password').value
-      const confirm   = document.getElementById('confirm-password').value
-      const errorMsg  = document.getElementById('error-msg')
-      const successMsg = document.getElementById('success-msg')
+    if (!/^\d{10}$/.test(phone)) {
+      errorMsg.textContent = 'Enter a valid 10-digit phone number.'
+      errorMsg.classList.remove('hidden')
+      return
+    }
 
-      // Reset messages
-      errorMsg.classList.add('hidden')
-      successMsg.classList.add('hidden')
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          firstname,
+          lastname,
+          email,
+          phone,
+          password,
+          role: selectedRole,
+          company: selectedRole === 'employer' ? company : ''
+        })
+      })
+      const data = await res.json()
 
-      // Basic validations
-      if (password.length < 8) {
-        errorMsg.textContent = 'Password must be at least 8 characters.'
+      if (!res.ok) {
+        errorMsg.textContent = data.message || 'Registration failed.'
         errorMsg.classList.remove('hidden')
         return
       }
 
-      if (password !== confirm) {
-        errorMsg.textContent = 'Passwords do not match.'
-        errorMsg.classList.remove('hidden')
-        return
-      }
-
-      if (!/^\d{10}$/.test(phone)) {
-        errorMsg.textContent = 'Enter a valid 10-digit phone number.'
-        errorMsg.classList.remove('hidden')
-        return
-      }
-
-      // ── Temporary: simulate successful registration ──
-      // Replace this block later with a real API call to meemansa's backend:
-      //
-      // const res = await fetch('http://localhost:5000/api/auth/register', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify({ firstname, lastname, email, phone, password, role: selectedRole })
-      // })
-      //
       successMsg.classList.remove('hidden')
       setTimeout(() => {
         window.location.href = 'login.html'
       }, 1500)
+
+    } catch (err) {
+      errorMsg.textContent = 'Could not connect to server. Is the backend running?'
+      errorMsg.classList.remove('hidden')
     }
-  </script>
+  }
+</script>
 
 </body>
 </html>
