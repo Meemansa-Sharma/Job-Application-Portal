@@ -12,10 +12,9 @@ const applicationSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    resume: { type: String, required: true }, // path to the resume file used for THIS application
+    resume: { type: String, required: true }, 
     coverLetter: { type: String, default: "" },
-    // NOTE: this vocabulary matches my-applications.html / employer-dashboard.html on the frontend.
-    // applied -> review -> interview -> selected, with rejected possible at any point.
+
     status: {
       type: String,
       enum: ["applied", "review", "interview", "selected", "rejected"],
@@ -23,7 +22,7 @@ const applicationSchema = new mongoose.Schema(
     },
     interviewDate: { type: Date, default: null },
     interviewTime: { type: String, default: "" },
-    interviewMode: { type: String, default: "" }, // e.g. "Google Meet", "In-person"
+    interviewMode: { type: String, default: "" },
     interviewLink: { type: String, default: "" },
     interviewNotes: { type: String, default: "" },
   },

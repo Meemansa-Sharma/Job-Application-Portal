@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema(
     lastname: { type: String, required: true },
     email: { type: String, required: true, unique: true, lowercase: true, trim: true },
     phone: { type: String, required: true },
-    password: { type: String, required: true }, // stored as a bcrypt hash, never plain text
+    password: { type: String, required: true }, // stored as a bcrypt hash
     role: {
       type: String,
       enum: ["seeker", "employer", "admin"],
@@ -33,14 +33,13 @@ const userSchema = new mongoose.Schema(
     },
     linkedin: { type: String, default: "" },
     github: { type: String, default: "" },
-    resume: { type: String, default: "" }, // path to most-recently uploaded resume (seeker convenience copy)
+    resume: { type: String, default: "" }, 
     savedJobs: [{ type: mongoose.Schema.Types.ObjectId, ref: "Job" }],
   },
   { timestamps: true }
 );
 
-// Rough profile-completion percentage used by the "Complete your profile" banner.
-// Counts a handful of meaningful fields; not stored, computed on demand.
+
 userSchema.methods.getProfileCompletion = function () {
   if (this.role !== "seeker") return 100;
   const checks = [

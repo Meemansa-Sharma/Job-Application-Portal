@@ -48,32 +48,32 @@
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
         <div class="bg-white border border-gray-200 rounded-xl p-4">
           <p class="text-xs text-gray-400 mb-1">Applications sent</p>
-          <p class="text-2xl font-semibold text-blue-600">5</p>
+          <p class="text-2xl font-semibold text-blue-600" id="stat-sent">—</p>
         </div>
         <div class="bg-white border border-gray-200 rounded-xl p-4">
           <p class="text-xs text-gray-400 mb-1">Under review</p>
-          <p class="text-2xl font-semibold text-yellow-500">2</p>
+          <p class="text-2xl font-semibold text-yellow-500" id="stat-review">—</p>
         </div>
         <div class="bg-white border border-gray-200 rounded-xl p-4">
           <p class="text-xs text-gray-400 mb-1">Interviews</p>
-          <p class="text-2xl font-semibold text-green-500">1</p>
+          <p class="text-2xl font-semibold text-green-500" id="stat-interview">—</p>
         </div>
         <div class="bg-white border border-gray-200 rounded-xl p-4">
           <p class="text-xs text-gray-400 mb-1">Saved jobs</p>
-          <p class="text-2xl font-semibold text-gray-700">3</p>
+          <p class="text-2xl font-semibold text-gray-700" id="stat-saved">—</p>
         </div>
       </div>
 
       <!-- PROFILE COMPLETION BANNER -->
-      <div id="profile-banner" class="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 flex items-center justify-between">
+      <div id="profile-banner" class="hidden bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6 flex items-center justify-between">
         <div>
           <p class="text-sm font-medium text-blue-800">Complete your profile</p>
           <p class="text-xs text-blue-600 mt-0.5">Add your resume and skills to get better job matches</p>
           <div class="flex items-center gap-2 mt-2">
             <div class="h-1.5 w-40 bg-blue-200 rounded-full overflow-hidden">
-              <div class="h-full bg-blue-500 rounded-full" style="width:60%"></div>
+              <div id="profile-progress-bar" class="h-full bg-blue-500 rounded-full" style="width:0%"></div>
             </div>
-            <span class="text-xs text-blue-600 font-medium">60% complete</span>
+            <span id="profile-progress-label" class="text-xs text-blue-600 font-medium">0% complete</span>
           </div>
         </div>
         <div class="flex items-center gap-2">
@@ -90,52 +90,8 @@
             <h2 class="text-base font-semibold text-gray-800">Recommended for you</h2>
             <a href="browse-jobs.html" class="text-xs text-blue-600 hover:underline">View all →</a>
           </div>
-          <div class="space-y-3">
-            <div onclick="window.location.href='job-detail.html'" class="bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 transition-colors cursor-pointer">
-              <div class="flex justify-between items-start mb-2">
-                <div><p class="text-sm font-medium text-gray-900">Frontend Developer</p><p class="text-xs text-gray-500">Infosys · Bangalore</p></div>
-                <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">New</span>
-              </div>
-              <div class="flex gap-1.5 mb-3">
-                <span class="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded border border-green-200">✓ React</span>
-                <span class="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded border border-green-200">✓ JS</span>
-                <span class="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded">REST APIs</span>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-sm font-medium text-blue-600">₹8 LPA</span>
-                <span class="text-xs text-green-600 font-medium">✦ 80% match</span>
-              </div>
-            </div>
-            <div onclick="window.location.href='job-detail.html'" class="bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 transition-colors cursor-pointer">
-              <div class="flex justify-between items-start mb-2">
-                <div><p class="text-sm font-medium text-gray-900">React Native Developer</p><p class="text-xs text-gray-500">Capgemini · Bangalore</p></div>
-                <span class="text-xs bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full">Hot</span>
-              </div>
-              <div class="flex gap-1.5 mb-3">
-                <span class="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded border border-green-200">✓ React</span>
-                <span class="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded border border-green-200">✓ JS</span>
-                <span class="text-xs bg-gray-100 text-gray-500 px-2 py-0.5 rounded">Redux</span>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-sm font-medium text-blue-600">₹9 LPA</span>
-                <span class="text-xs text-green-600 font-medium">✦ 67% match</span>
-              </div>
-            </div>
-            <div onclick="window.location.href='job-detail.html'" class="bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 transition-colors cursor-pointer">
-              <div class="flex justify-between items-start mb-2">
-                <div><p class="text-sm font-medium text-gray-900">Frontend Intern</p><p class="text-xs text-gray-500">Zoho · Chennai</p></div>
-                <span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full">New</span>
-              </div>
-              <div class="flex gap-1.5 mb-3">
-                <span class="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded border border-green-200">✓ HTML</span>
-                <span class="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded border border-green-200">✓ CSS</span>
-                <span class="text-xs bg-green-50 text-green-700 px-2 py-0.5 rounded border border-green-200">✓ JS</span>
-              </div>
-              <div class="flex justify-between items-center">
-                <span class="text-sm font-medium text-blue-600">₹20K/mo</span>
-                <span class="text-xs text-green-600 font-medium">✦ 100% match</span>
-              </div>
-            </div>
+          <div id="recommended-jobs" class="space-y-3">
+            <p class="text-sm text-gray-400">Loading…</p>
           </div>
         </div>
 
@@ -145,42 +101,148 @@
             <h2 class="text-base font-semibold text-gray-800">Recent applications</h2>
             <a href="my-applications.html" class="text-xs text-blue-600 hover:underline">View all →</a>
           </div>
-          <div class="space-y-3">
-            <div class="bg-white border border-gray-200 rounded-xl p-4 flex justify-between items-start">
-              <div><p class="text-sm font-medium text-gray-900">Frontend Developer</p><p class="text-xs text-gray-500">Infosys · Applied Jun 28</p></div>
-              <span class="text-xs bg-green-100 text-green-700 px-2.5 py-1 rounded-full font-medium">Selected</span>
-            </div>
-            <div class="bg-white border border-gray-200 rounded-xl p-4 flex justify-between items-start">
-              <div><p class="text-sm font-medium text-gray-900">Backend Developer</p><p class="text-xs text-gray-500">TCS · Applied Jun 25</p></div>
-              <span class="text-xs bg-yellow-100 text-yellow-700 px-2.5 py-1 rounded-full font-medium">Under review</span>
-            </div>
-            <div class="bg-white border border-gray-200 rounded-xl p-4 flex justify-between items-start">
-              <div><p class="text-sm font-medium text-gray-900">Full Stack Developer</p><p class="text-xs text-gray-500">HCL Tech · Applied Jun 20</p></div>
-              <span class="text-xs bg-blue-100 text-blue-700 px-2.5 py-1 rounded-full font-medium">Applied</span>
-            </div>
-            <div class="bg-white border border-gray-200 rounded-xl p-4 flex justify-between items-start">
-              <div><p class="text-sm font-medium text-gray-900">UI/UX Designer</p><p class="text-xs text-gray-500">Wipro · Applied Jun 18</p></div>
-              <span class="text-xs bg-red-100 text-red-500 px-2.5 py-1 rounded-full font-medium">Rejected</span>
-            </div>
+          <div id="recent-applications" class="space-y-3">
+            <p class="text-sm text-gray-400">Loading…</p>
           </div>
         </div>
 
       </div>
 
       <!-- INTERVIEW REMINDER -->
-      <div class="mt-6 bg-white border border-yellow-200 rounded-xl p-5">
+      <div id="interview-reminder" class="hidden mt-6 bg-white border border-yellow-200 rounded-xl p-5">
         <div class="flex items-start gap-4">
           <span class="text-2xl">📅</span>
           <div class="flex-1">
             <p class="text-sm font-semibold text-gray-900 mb-0.5">Upcoming interview</p>
-            <p class="text-sm text-gray-600">Frontend Developer at <span class="font-medium">Infosys</span></p>
-            <p class="text-xs text-gray-400 mt-1">Thursday, 10 July 2025 · 11:00 AM · Google Meet</p>
+            <p id="interview-details" class="text-sm text-gray-600"></p>
+            <p id="interview-datetime" class="text-xs text-gray-400 mt-1"></p>
           </div>
-          <span class="text-xs bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full font-medium flex-shrink-0">In 2 days</span>
         </div>
       </div>
 
     </main>
   </div>
+
+  <script>
+    const statusColors = {
+      applied:   { bg: 'bg-blue-100',   text: 'text-blue-700'   },
+      review:    { bg: 'bg-yellow-100', text: 'text-yellow-700' },
+      interview: { bg: 'bg-purple-100', text: 'text-purple-700' },
+      selected:  { bg: 'bg-green-100',  text: 'text-green-700'  },
+      rejected:  { bg: 'bg-red-100',    text: 'text-red-500'    },
+    }
+    const statusLabels = {
+      applied: 'Applied', review: 'Under review', interview: 'Interview',
+      selected: 'Selected', rejected: 'Rejected',
+    }
+
+    async function loadDashboard() {
+      const token = localStorage.getItem('token')
+      const headers = { Authorization: `Bearer ${token}` }
+
+      try {
+        const [meRes, appsRes, savedRes, jobsRes] = await Promise.all([
+          fetch('http://localhost:5000/api/auth/me', { headers }),
+          fetch('http://localhost:5000/api/applications/my', { headers }),
+          fetch('http://localhost:5000/api/users/saved-jobs', { headers }),
+          fetch('http://localhost:5000/api/jobs'),
+        ])
+
+        const me = await meRes.json()
+        const applications = appsRes.ok ? await appsRes.json() : []
+        const savedJobs = savedRes.ok ? await savedRes.json() : []
+        const jobs = jobsRes.ok ? await jobsRes.json() : []
+
+        renderStats(applications, savedJobs)
+        renderProfileBanner(me)
+        renderRecommended(jobs, me.user.skills || [])
+        renderRecentApplications(applications)
+        renderInterviewReminder(applications)
+      } catch (err) {
+        document.getElementById('recommended-jobs').innerHTML =
+          `<p class="text-sm text-red-400">Couldn't load dashboard. Is the backend running?</p>`
+      }
+    }
+
+    function renderStats(applications, savedJobs) {
+      document.getElementById('stat-sent').textContent = applications.length
+      document.getElementById('stat-review').textContent = applications.filter(a => a.status === 'review').length
+      document.getElementById('stat-interview').textContent = applications.filter(a => a.status === 'interview').length
+      document.getElementById('stat-saved').textContent = savedJobs.length
+    }
+
+    function renderProfileBanner(me) {
+      const pct = me.profileCompletion
+      if (pct >= 100) return
+      document.getElementById('profile-banner').classList.remove('hidden')
+      document.getElementById('profile-progress-bar').style.width = `${pct}%`
+      document.getElementById('profile-progress-label').textContent = `${pct}% complete`
+    }
+
+    function renderRecommended(jobs, mySkills) {
+      const container = document.getElementById('recommended-jobs')
+      if (!jobs.length) {
+        container.innerHTML = '<p class="text-sm text-gray-400">No jobs posted yet.</p>'
+        return
+      }
+      const withScores = jobs.map(job => {
+        const matched = (job.tags || []).filter(t => mySkills.includes(t)).length
+        const score = job.tags && job.tags.length ? Math.round(matched / job.tags.length * 100) : 0
+        return { job, score }
+      })
+      withScores.sort((a, b) => b.score - a.score)
+
+      container.innerHTML = withScores.slice(0, 3).map(({ job, score }) => `
+        <div onclick="window.location.href='job-detail.html?id=${job._id}'" class="bg-white border border-gray-200 rounded-xl p-4 hover:border-blue-300 transition-colors cursor-pointer">
+          <div class="flex justify-between items-start mb-2">
+            <div><p class="text-sm font-medium text-gray-900">${job.title}</p><p class="text-xs text-gray-500">${job.company} · ${job.location}</p></div>
+          </div>
+          <div class="flex gap-1.5 mb-3 flex-wrap">
+            ${(job.tags || []).slice(0, 3).map(t => `<span class="text-xs px-2 py-0.5 rounded ${mySkills.includes(t) ? 'bg-green-50 text-green-700 border border-green-200' : 'bg-gray-100 text-gray-500'}">${mySkills.includes(t) ? '✓ ' : ''}${t}</span>`).join('')}
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-sm font-medium text-blue-600">${job.salary || 'Not disclosed'}</span>
+            ${mySkills.length ? `<span class="text-xs text-green-600 font-medium">✦ ${score}% match</span>` : ''}
+          </div>
+        </div>`).join('')
+    }
+
+    function renderRecentApplications(applications) {
+      const container = document.getElementById('recent-applications')
+      if (!applications.length) {
+        container.innerHTML = '<p class="text-sm text-gray-400">You haven\'t applied to any jobs yet.</p>'
+        return
+      }
+      container.innerHTML = applications.slice(0, 4).map(a => {
+        const s = statusColors[a.status] || { bg: 'bg-gray-100', text: 'text-gray-600' }
+        return `
+        <div class="bg-white border border-gray-200 rounded-xl p-4 flex justify-between items-start">
+          <div>
+            <p class="text-sm font-medium text-gray-900">${a.job ? a.job.title : '(job removed)'}</p>
+            <p class="text-xs text-gray-500">${a.job ? a.job.company : ''} · Applied ${new Date(a.createdAt).toLocaleDateString('en-IN', { month: 'short', day: 'numeric' })}</p>
+          </div>
+          <span class="text-xs ${s.bg} ${s.text} px-2.5 py-1 rounded-full font-medium">${statusLabels[a.status] || a.status}</span>
+        </div>`
+      }).join('')
+    }
+
+    function renderInterviewReminder(applications) {
+      const upcoming = applications
+        .filter(a => a.status === 'interview' && a.interviewDate && new Date(a.interviewDate) > new Date())
+        .sort((a, b) => new Date(a.interviewDate) - new Date(b.interviewDate))[0]
+      if (!upcoming) return
+
+      document.getElementById('interview-reminder').classList.remove('hidden')
+      document.getElementById('interview-details').innerHTML =
+        `${upcoming.job ? upcoming.job.title : 'Interview'} at <span class="font-medium">${upcoming.job ? upcoming.job.company : ''}</span>`
+      const dt = new Date(upcoming.interviewDate)
+      document.getElementById('interview-datetime').textContent =
+        `${dt.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })}` +
+        (upcoming.interviewTime ? ` · ${upcoming.interviewTime}` : '') +
+        (upcoming.interviewMode ? ` · ${upcoming.interviewMode}` : '')
+    }
+
+    loadDashboard()
+  </script>
 </body>
 </html>

@@ -1,18 +1,9 @@
 import Groq from "groq-sdk";
 
-// If GROQ_API_KEY isn't set, we still want the rest of the app to work -
-// the controller that calls this falls back to the deterministic match.
 const groq = process.env.GROQ_API_KEY ? new Groq({ apiKey: process.env.GROQ_API_KEY }) : null;
 
-// Model note: Groq has been retiring some of the older Llama models (e.g.
-// llama-3.1-8b-instant is slated for shutdown). openai/gpt-oss-20b is a
-// solid current default - fast, cheap, and supports JSON mode, which is all
-// this feature needs. Override via GROQ_MODEL if you'd rather use something
-// else (check https://console.groq.com/docs/models for the current list).
 const MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-20b";
 
-// Keep prompts short - cheaper, faster, and avoids blowing context on a giant
-// pasted job description or "about me".
 const truncate = (str = "", max = 600) => (str.length > max ? str.slice(0, max) + "…" : str);
 
 /**
@@ -66,7 +57,6 @@ Education: ${user.education?.degree ? `${user.education.degree}, ${user.educatio
 
   const parsed = JSON.parse(raw); // throws if the model didn't return valid JSON - caller catches it
 
-  // clamp/sanitize so a weird model response can't break the frontend
   return {
     score: Math.max(0, Math.min(100, Math.round(Number(parsed.score) || 0))),
     matchedSkills: Array.isArray(parsed.matchedSkills) ? parsed.matchedSkills : [],

@@ -16,7 +16,7 @@ const router = express.Router();
 router.get("/my", protect, authorize("seeker"), getMyApplications);
 
 // Employer views every applicant across all of their own job postings
-// (must come before "/job/:jobId" for the same static-vs-dynamic reason as jobRoutes)
+
 router.get("/employer/mine", protect, authorize("employer"), getAllApplicantsForEmployer);
 
 // Employer views everyone who applied to one specific job of theirs

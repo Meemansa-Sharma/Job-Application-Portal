@@ -1,16 +1,8 @@
 import Job from "../models/Job.js";
 import { getAISkillAnalysis } from "../services/groqService.js";
 
-// small helper - post-job.html's step-2 skills field currently posts as
-// "skills" in the payload comment, while this API historically expected
-// "tags". Accept either so the frontend isn't blocked on a rename.
 const extractTags = (body) => body.tags || body.skills || [];
 
-// small helper - computes a simple, deterministic skill-match score between
-// a job's tags and a seeker's profile skills. This is the same 60%-style
-// math the frontend currently fakes client-side, just computed server-side
-// so it's consistent everywhere. (A future Groq-powered version could
-// replace this without changing the response shape.)
 export const computeSkillMatch = (jobTags = [], userSkills = []) => {
   if (!jobTags.length) return null;
   const normalizedUserSkills = userSkills.map((s) => s.toLowerCase());
@@ -52,7 +44,7 @@ export const createJob = async (req, res, next) => {
 };
 
 // GET /api/jobs  (public - browse-jobs page)
-// Supports ?keyword=react&location=Bangalore&type=Full-time
+
 export const getJobs = async (req, res, next) => {
   try {
     const { keyword, location, type } = req.query;
@@ -70,8 +62,7 @@ export const getJobs = async (req, res, next) => {
 };
 
 // GET /api/jobs/:id  (public - job-detail page)
-// If the request carries a valid token for a seeker (optionalAuth), the
-// response includes a skillMatch block computed against that seeker's profile.
+
 export const getJobById = async (req, res, next) => {
   try {
     const job = await Job.findById(req.params.id).populate(
@@ -94,12 +85,7 @@ export const getJobById = async (req, res, next) => {
 };
 
 // POST /api/jobs/:id/ai-match  (seeker only)
-// On-demand, Groq-powered version of the skill match: a real short explanation
-// and tip instead of just a percentage. Kept separate from GET /:id (which
-// stays fast and free) since this makes an external API call.
-// Always returns a usable result - if Groq isn't configured or the call
-// fails for any reason, it silently falls back to the deterministic score
-// so the "AI skill match" button never just shows an error to the user.
+
 export const getAIJobMatch = async (req, res, next) => {
   try {
     const job = await Job.findById(req.params.id);

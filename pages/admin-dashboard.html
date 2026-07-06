@@ -18,47 +18,22 @@
       </div>
       <div class="px-5 py-4 border-b border-gray-100">
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full bg-red-100 text-red-600 text-sm font-semibold flex items-center justify-center">
-            AD
-          </div>
+          <div class="w-9 h-9 rounded-full bg-red-100 text-red-600 text-sm font-semibold flex items-center justify-center" data-initials></div>
           <div>
-            <p class="text-sm font-medium text-gray-900">Admin</p>
-            <p class="text-xs text-gray-400">Super admin</p>
+            <p class="text-sm font-medium text-gray-900" data-firstname></p>
+            <p class="text-xs text-gray-400" data-role></p>
           </div>
         </div>
       </div>
       <nav class="flex-1 px-3 py-4 space-y-1">
-        <a href="#" onclick="showSection('overview')"
-          class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm bg-blue-50 text-blue-600 font-medium"
-          id="nav-overview">
-          📊 Overview
-        </a>
-        <a href="#" onclick="showSection('users')"
-          class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100"
-          id="nav-users">
-          👤 Users
-        </a>
-        <a href="#" onclick="showSection('employers')"
-          class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100"
-          id="nav-employers">
-          🏢 Employers
-        </a>
-        <a href="#" onclick="showSection('jobs')"
-          class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100"
-          id="nav-jobs">
-          💼 Jobs
-        </a>
-        <a href="#" onclick="showSection('applications')"
-          class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100"
-          id="nav-applications">
-          📄 Applications
-        </a>
+        <a href="#" onclick="showSection('overview')" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm bg-blue-50 text-blue-600 font-medium" id="nav-overview">📊 Overview</a>
+        <a href="#" onclick="showSection('users')" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100" id="nav-users">👤 Users</a>
+        <a href="#" onclick="showSection('employers')" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100" id="nav-employers">🏢 Employers</a>
+        <a href="#" onclick="showSection('jobs')" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100" id="nav-jobs">💼 Jobs</a>
+        <a href="#" onclick="showSection('applications')" class="nav-link flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100" id="nav-applications">📄 Applications</a>
       </nav>
       <div class="px-3 py-4 border-t border-gray-100">
-        <a href="../login.html"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-500 hover:bg-red-50">
-          🚪 Log out
-        </a>
+        <a href="#" onclick="logout()" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-500 hover:bg-red-50">🚪 Log out</a>
       </div>
     </aside>
 
@@ -72,82 +47,42 @@
           <p class="text-sm text-gray-500">All activity across HireConnect</p>
         </div>
 
-        <!-- STATS -->
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           <div class="bg-white border border-gray-200 rounded-xl p-4">
             <p class="text-xs text-gray-400 mb-1">Total users</p>
-            <p class="text-2xl font-semibold text-blue-600">142</p>
-            <p class="text-xs text-green-500 mt-1">↑ 12 this week</p>
+            <p class="text-2xl font-semibold text-blue-600" id="stat-total-users">—</p>
           </div>
           <div class="bg-white border border-gray-200 rounded-xl p-4">
             <p class="text-xs text-gray-400 mb-1">Employers</p>
-            <p class="text-2xl font-semibold text-green-600">38</p>
-            <p class="text-xs text-green-500 mt-1">↑ 3 this week</p>
+            <p class="text-2xl font-semibold text-green-600" id="stat-employers">—</p>
           </div>
           <div class="bg-white border border-gray-200 rounded-xl p-4">
             <p class="text-xs text-gray-400 mb-1">Jobs live</p>
-            <p class="text-2xl font-semibold text-yellow-500">76</p>
-            <p class="text-xs text-gray-400 mt-1">14 closed</p>
+            <p class="text-2xl font-semibold text-yellow-500" id="stat-active-jobs">—</p>
+            <p class="text-xs text-gray-400 mt-1" id="stat-closed-jobs">—</p>
           </div>
           <div class="bg-white border border-gray-200 rounded-xl p-4">
             <p class="text-xs text-gray-400 mb-1">Applications</p>
-            <p class="text-2xl font-semibold text-purple-600">310</p>
-            <p class="text-xs text-green-500 mt-1">↑ 28 this week</p>
+            <p class="text-2xl font-semibold text-purple-600" id="stat-applications">—</p>
           </div>
         </div>
 
-        <!-- RECENT ACTIVITY -->
         <div class="bg-white border border-gray-200 rounded-xl p-5">
-          <h2 class="text-sm font-semibold text-gray-800 mb-4">Recent activity</h2>
-          <div class="space-y-3">
-            <div class="flex items-start gap-3 text-sm">
-              <span class="text-base mt-0.5">👤</span>
-              <div>
-                <p class="text-gray-700"><span class="font-medium">Krishika</span> registered as a job seeker</p>
-                <p class="text-xs text-gray-400">2 minutes ago</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-3 text-sm">
-              <span class="text-base mt-0.5">💼</span>
-              <div>
-                <p class="text-gray-700"><span class="font-medium">Infosys</span> posted a new job — Frontend Developer</p>
-                <p class="text-xs text-gray-400">15 minutes ago</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-3 text-sm">
-              <span class="text-base mt-0.5">📄</span>
-              <div>
-                <p class="text-gray-700"><span class="font-medium">Harsh Thakur</span> applied to Backend Developer at TCS</p>
-                <p class="text-xs text-gray-400">1 hour ago</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-3 text-sm">
-              <span class="text-base mt-0.5">🏢</span>
-              <div>
-                <p class="text-gray-700"><span class="font-medium">Wipro</span> registered as an employer</p>
-                <p class="text-xs text-gray-400">3 hours ago</p>
-              </div>
-            </div>
-            <div class="flex items-start gap-3 text-sm">
-              <span class="text-base mt-0.5">✅</span>
-              <div>
-                <p class="text-gray-700"><span class="font-medium">Meemansa Sharma</span> was selected for Frontend Developer at Infosys</p>
-                <p class="text-xs text-gray-400">5 hours ago</p>
-              </div>
-            </div>
+          <h2 class="text-sm font-semibold text-gray-800 mb-4">Recent applications</h2>
+          <div id="recent-activity" class="space-y-3">
+            <p class="text-sm text-gray-400">Loading…</p>
           </div>
         </div>
       </div>
 
-      <!-- ── USERS ── -->
+      <!-- ── USERS (seekers only) ── -->
       <div id="section-users" class="hidden">
         <div class="flex items-center justify-between mb-6">
           <div>
             <h1 class="text-xl font-semibold text-gray-900">Users</h1>
             <p class="text-sm text-gray-500">All registered job seekers</p>
           </div>
-          <input type="text" id="user-search" placeholder="Search users…"
-            oninput="renderUsers()"
+          <input type="text" id="user-search" placeholder="Search users…" oninput="renderUsers()"
             class="text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300 w-48" />
         </div>
         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
@@ -173,8 +108,7 @@
             <h1 class="text-xl font-semibold text-gray-900">Employers</h1>
             <p class="text-sm text-gray-500">All registered companies</p>
           </div>
-          <input type="text" id="employer-search" placeholder="Search employers…"
-            oninput="renderEmployers()"
+          <input type="text" id="employer-search" placeholder="Search employers…" oninput="renderEmployers()"
             class="text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300 w-48" />
         </div>
         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
@@ -184,7 +118,6 @@
                 <th class="text-left px-5 py-3 text-xs font-medium text-gray-500 uppercase">Company</th>
                 <th class="text-left px-5 py-3 text-xs font-medium text-gray-500 uppercase">Email</th>
                 <th class="text-left px-5 py-3 text-xs font-medium text-gray-500 uppercase">Jobs posted</th>
-                <th class="text-left px-5 py-3 text-xs font-medium text-gray-500 uppercase">Status</th>
                 <th class="text-left px-5 py-3 text-xs font-medium text-gray-500 uppercase">Action</th>
               </tr>
             </thead>
@@ -200,8 +133,7 @@
             <h1 class="text-xl font-semibold text-gray-900">Jobs</h1>
             <p class="text-sm text-gray-500">All job listings on the platform</p>
           </div>
-          <input type="text" id="job-search" placeholder="Search jobs…"
-            oninput="renderAdminJobs()"
+          <input type="text" id="job-search" placeholder="Search jobs…" oninput="renderAdminJobs()"
             class="text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300 w-48" />
         </div>
         <div class="bg-white border border-gray-200 rounded-xl overflow-hidden">
@@ -247,109 +179,147 @@
   </div>
 
   <script>
-
-    // ── Data ──
-    const users = [
-      { id:1, name:'Krishika',  email:'krishika@email.com',  joined:'Jun 28, 2025', apps:5  },
-      { id:2, name:'Meemansa Sharma',  email:'meemansa@email.com',  joined:'Jun 27, 2025', apps:3  },
-      { id:3, name:'Harsh Thakur',     email:'harsh@email.com',     joined:'Jun 26, 2025', apps:2  },
-      { id:4, name:'Rahul Verma',      email:'rahul@email.com',     joined:'Jun 24, 2025', apps:7  },
-      { id:5, name:'Priya Singh',      email:'priya@email.com',     joined:'Jun 20, 2025', apps:4  },
-      { id:6, name:'Ankit Joshi',      email:'ankit@email.com',     joined:'Jun 18, 2025', apps:1  },
-    ]
-
-    const employers = [
-      { id:1, name:'Infosys',   email:'hr@infosys.com',   jobs:8, status:'active'    },
-      { id:2, name:'TCS',       email:'hr@tcs.com',       jobs:5, status:'active'    },
-      { id:3, name:'Wipro',     email:'hr@wipro.com',     jobs:3, status:'active'    },
-      { id:4, name:'HCL Tech',  email:'hr@hcl.com',       jobs:4, status:'active'    },
-      { id:5, name:'Capgemini', email:'hr@capgemini.com', jobs:2, status:'suspended' },
-    ]
-
-    const adminJobs = [
-      { id:1, title:'Frontend Developer', company:'Infosys',   location:'Bangalore', apps:12, status:'active'  },
-      { id:2, title:'Backend Developer',  company:'TCS',       location:'Mumbai',    apps:18, status:'active'  },
-      { id:3, title:'UI/UX Designer',     company:'Wipro',     location:'Pune',      apps:5,  status:'paused'  },
-      { id:4, title:'Full Stack Dev',     company:'HCL Tech',  location:'Hyderabad', apps:9,  status:'active'  },
-      { id:5, title:'DevOps Engineer',    company:'Capgemini', location:'Bangalore', apps:3,  status:'closed'  },
-    ]
-
-    const adminApps = [
-      { candidate:'Krishika',  job:'Frontend Developer', company:'Infosys',   applied:'Jun 28', status:'selected'  },
-      { candidate:'Meemansa Sharma',  job:'Frontend Developer', company:'Infosys',   applied:'Jun 27', status:'review'    },
-      { candidate:'Harsh Thakur',     job:'Backend Developer',  company:'TCS',       applied:'Jun 26', status:'interview' },
-      { candidate:'Rahul Verma',      job:'Backend Developer',  company:'TCS',       applied:'Jun 24', status:'applied'   },
-      { candidate:'Priya Singh',      job:'UI/UX Designer',     company:'Wipro',     applied:'Jun 22', status:'rejected'  },
-      { candidate:'Ankit Joshi',      job:'Full Stack Dev',     company:'HCL Tech',  applied:'Jun 20', status:'applied'   },
-    ]
+    let users = []       // role === 'seeker'
+    let employers = []   // role === 'employer'
+    let adminJobs = []
+    let adminApps = []
+    const token = localStorage.getItem('token')
 
     const statusColors = {
-      active:    'bg-green-100 text-green-700',
-      paused:    'bg-yellow-100 text-yellow-700',
-      closed:    'bg-gray-100 text-gray-500',
-      suspended: 'bg-red-100 text-red-500',
-      applied:   'bg-blue-100 text-blue-700',
-      review:    'bg-yellow-100 text-yellow-700',
+      active: 'bg-green-100 text-green-700',
+      paused: 'bg-yellow-100 text-yellow-700',
+      closed: 'bg-gray-100 text-gray-500',
+      applied: 'bg-blue-100 text-blue-700',
+      review: 'bg-yellow-100 text-yellow-700',
       interview: 'bg-purple-100 text-purple-700',
-      selected:  'bg-green-100 text-green-700',
-      rejected:  'bg-red-100 text-red-500',
+      selected: 'bg-green-100 text-green-700',
+      rejected: 'bg-red-100 text-red-500',
     }
 
-    // ── Render functions ──
+    async function loadAll() {
+      const headers = { Authorization: `Bearer ${token}` }
+      try {
+        const [statsRes, usersRes, jobsRes, appsRes] = await Promise.all([
+          fetch('http://localhost:5000/api/admin/stats', { headers }),
+          fetch('http://localhost:5000/api/admin/users', { headers }),
+          fetch('http://localhost:5000/api/admin/jobs', { headers }),
+          fetch('http://localhost:5000/api/admin/applications', { headers }),
+        ])
+
+        const stats = statsRes.ok ? await statsRes.json() : {}
+        const allUsers = usersRes.ok ? await usersRes.json() : []
+        adminJobs = jobsRes.ok ? await jobsRes.json() : []
+        adminApps = appsRes.ok ? await appsRes.json() : []
+
+        users = allUsers.filter(u => u.role === 'seeker')
+        employers = allUsers.filter(u => u.role === 'employer')
+
+        renderOverviewStats(stats)
+        renderRecentActivity()
+        renderUsers()
+        renderEmployers()
+        renderAdminJobs()
+        renderApplications()
+        showSection('overview')
+      } catch (err) {
+        document.getElementById('recent-activity').innerHTML =
+          `<p class="text-sm text-red-400">Couldn't load admin data. Is the backend running?</p>`
+      }
+    }
+
+    function renderOverviewStats(stats) {
+      document.getElementById('stat-total-users').textContent = stats.totalUsers ?? '—'
+      document.getElementById('stat-employers').textContent = stats.totalEmployers ?? '—'
+      document.getElementById('stat-active-jobs').textContent = stats.activeJobs ?? '—'
+      document.getElementById('stat-closed-jobs').textContent = `${stats.closedJobs ?? 0} closed`
+      document.getElementById('stat-applications').textContent = stats.totalApplications ?? '—'
+    }
+
+    
+    function renderRecentActivity() {
+      const container = document.getElementById('recent-activity')
+      const recent = [...adminApps]
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        .slice(0, 6)
+
+      if (!recent.length) {
+        container.innerHTML = '<p class="text-sm text-gray-400">No applications yet.</p>'
+        return
+      }
+
+      container.innerHTML = recent.map(a => {
+        const candidate = a.applicant ? `${a.applicant.firstname} ${a.applicant.lastname}` : 'Someone'
+        const job = a.job ? a.job.title : 'a job'
+        const company = a.job ? a.job.company : ''
+        return `
+        <div class="flex items-start gap-3 text-sm">
+          <span class="text-base mt-0.5">📄</span>
+          <div>
+            <p class="text-gray-700"><span class="font-medium">${candidate}</span> applied to ${job}${company ? ' at ' + company : ''}</p>
+            <p class="text-xs text-gray-400">${new Date(a.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</p>
+          </div>
+        </div>`
+      }).join('')
+    }
+
+    function appsCountFor(userId) {
+      return adminApps.filter(a => a.applicant && a.applicant._id === userId).length
+    }
+    function jobsCountFor(employerId) {
+      return adminJobs.filter(j => j.employer && j.employer._id === employerId).length
+    }
+
     function renderUsers() {
       const q = (document.getElementById('user-search')?.value || '').toLowerCase()
-      const filtered = users.filter(u =>
-        u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q))
-      document.getElementById('users-table').innerHTML = filtered.map(u => `
+      const filtered = users.filter(u => {
+        const name = `${u.firstname} ${u.lastname}`.toLowerCase()
+        return name.includes(q) || u.email.toLowerCase().includes(q)
+      })
+      document.getElementById('users-table').innerHTML = filtered.map(u => {
+        const name = `${u.firstname} ${u.lastname}`
+        return `
         <tr class="border-b border-gray-100 hover:bg-gray-50">
           <td class="px-5 py-3">
             <div class="flex items-center gap-2">
               <div class="w-7 h-7 rounded-full bg-blue-100 text-blue-600 text-xs font-semibold flex items-center justify-center flex-shrink-0">
-                ${u.name.split(' ').map(n=>n[0]).join('').slice(0,2)}
+                ${name.split(' ').map(n=>n[0]).join('').slice(0,2).toUpperCase()}
               </div>
-              <span class="font-medium text-gray-800">${u.name}</span>
+              <span class="font-medium text-gray-800">${name}</span>
             </div>
           </td>
           <td class="px-5 py-3 text-gray-500">${u.email}</td>
-          <td class="px-5 py-3 text-gray-500">${u.joined}</td>
-          <td class="px-5 py-3 text-gray-700 font-medium">${u.apps}</td>
+          <td class="px-5 py-3 text-gray-500">${new Date(u.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })}</td>
+          <td class="px-5 py-3 text-gray-700 font-medium">${appsCountFor(u._id)}</td>
           <td class="px-5 py-3">
-            <button onclick="deleteRow('users',${u.id})"
-              class="text-xs text-red-500 border border-red-200 px-2.5 py-1 rounded-lg hover:bg-red-50">
-              Remove
-            </button>
+            <button onclick="removeUser('${u._id}')" class="text-xs text-red-500 border border-red-200 px-2.5 py-1 rounded-lg hover:bg-red-50">Remove</button>
           </td>
-        </tr>`).join('')
+        </tr>`
+      }).join('')
     }
 
     function renderEmployers() {
       const q = (document.getElementById('employer-search')?.value || '').toLowerCase()
       const filtered = employers.filter(e =>
-        e.name.toLowerCase().includes(q) || e.email.toLowerCase().includes(q))
-      document.getElementById('employers-table').innerHTML = filtered.map(e => `
+        (e.company || '').toLowerCase().includes(q) || e.email.toLowerCase().includes(q))
+      document.getElementById('employers-table').innerHTML = filtered.map(e => {
+        const label = e.company || `${e.firstname} ${e.lastname}`
+        return `
         <tr class="border-b border-gray-100 hover:bg-gray-50">
           <td class="px-5 py-3">
             <div class="flex items-center gap-2">
               <div class="w-7 h-7 rounded-lg bg-green-100 text-green-700 text-xs font-semibold flex items-center justify-center flex-shrink-0">
-                ${e.name.slice(0,2).toUpperCase()}
+                ${label.slice(0,2).toUpperCase()}
               </div>
-              <span class="font-medium text-gray-800">${e.name}</span>
+              <span class="font-medium text-gray-800">${label}</span>
             </div>
           </td>
           <td class="px-5 py-3 text-gray-500">${e.email}</td>
-          <td class="px-5 py-3 text-gray-700 font-medium">${e.jobs}</td>
+          <td class="px-5 py-3 text-gray-700 font-medium">${jobsCountFor(e._id)}</td>
           <td class="px-5 py-3">
-            <span class="text-xs px-2.5 py-1 rounded-full font-medium ${statusColors[e.status]}">
-              ${e.status.charAt(0).toUpperCase()+e.status.slice(1)}
-            </span>
+            <button onclick="removeUser('${e._id}')" class="text-xs text-red-500 border border-red-200 px-2.5 py-1 rounded-lg hover:bg-red-50">Remove</button>
           </td>
-          <td class="px-5 py-3">
-            <button onclick="toggleEmployerStatus(${e.id})"
-              class="text-xs border border-gray-200 text-gray-600 px-2.5 py-1 rounded-lg hover:bg-gray-50">
-              ${e.status === 'active' ? 'Suspend' : 'Activate'}
-            </button>
-          </td>
-        </tr>`).join('')
+        </tr>`
+      }).join('')
     }
 
     function renderAdminJobs() {
@@ -361,58 +331,69 @@
           <td class="px-5 py-3 font-medium text-gray-800">${j.title}</td>
           <td class="px-5 py-3 text-gray-500">${j.company}</td>
           <td class="px-5 py-3 text-gray-500">${j.location}</td>
-          <td class="px-5 py-3 text-gray-700 font-medium">${j.apps}</td>
+          <td class="px-5 py-3 text-gray-700 font-medium">${adminApps.filter(a => a.job && a.job._id === j._id).length}</td>
           <td class="px-5 py-3">
             <span class="text-xs px-2.5 py-1 rounded-full font-medium ${statusColors[j.status]}">
               ${j.status.charAt(0).toUpperCase()+j.status.slice(1)}
             </span>
           </td>
           <td class="px-5 py-3">
-            <button onclick="deleteAdminJob(${j.id})"
-              class="text-xs text-red-500 border border-red-200 px-2.5 py-1 rounded-lg hover:bg-red-50">
-              Remove
-            </button>
+            <button onclick="deleteAdminJob('${j._id}')" class="text-xs text-red-500 border border-red-200 px-2.5 py-1 rounded-lg hover:bg-red-50">Remove</button>
           </td>
         </tr>`).join('')
     }
 
     function renderApplications() {
-      document.getElementById('applications-table').innerHTML = adminApps.map(a => `
+      document.getElementById('applications-table').innerHTML = adminApps.map(a => {
+        const candidate = a.applicant ? `${a.applicant.firstname} ${a.applicant.lastname}` : '—'
+        return `
         <tr class="border-b border-gray-100 hover:bg-gray-50">
-          <td class="px-5 py-3 font-medium text-gray-800">${a.candidate}</td>
-          <td class="px-5 py-3 text-gray-600">${a.job}</td>
-          <td class="px-5 py-3 text-gray-500">${a.company}</td>
-          <td class="px-5 py-3 text-gray-500">${a.applied}</td>
+          <td class="px-5 py-3 font-medium text-gray-800">${candidate}</td>
+          <td class="px-5 py-3 text-gray-600">${a.job ? a.job.title : '—'}</td>
+          <td class="px-5 py-3 text-gray-500">${a.job ? a.job.company : '—'}</td>
+          <td class="px-5 py-3 text-gray-500">${new Date(a.createdAt).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' })}</td>
           <td class="px-5 py-3">
             <span class="text-xs px-2.5 py-1 rounded-full font-medium ${statusColors[a.status]}">
               ${a.status.charAt(0).toUpperCase()+a.status.slice(1)}
             </span>
           </td>
-        </tr>`).join('')
+        </tr>`
+      }).join('')
     }
 
-    // ── Actions ──
-    function deleteRow(type, id) {
-      if (!confirm('Remove this user?')) return
-      const idx = users.findIndex(u => u.id === id)
-      if (idx !== -1) users.splice(idx, 1)
-      renderUsers()
+    async function removeUser(id) {
+      if (!confirm('Remove this account? This cannot be undone.')) return
+      try {
+        const res = await fetch(`http://localhost:5000/api/admin/users/${id}`, {
+          method: 'DELETE',
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        const data = await res.json()
+        if (!res.ok) { alert(data.message || 'Could not remove this account'); return }
+        users = users.filter(u => u._id !== id)
+        employers = employers.filter(e => e._id !== id)
+        renderUsers()
+        renderEmployers()
+      } catch (err) {
+        alert('Could not connect to server.')
+      }
     }
 
-    function toggleEmployerStatus(id) {
-      const emp = employers.find(e => e.id === id)
-      if (emp) emp.status = emp.status === 'active' ? 'suspended' : 'active'
-      renderEmployers()
-    }
-
-    function deleteAdminJob(id) {
+    async function deleteAdminJob(id) {
       if (!confirm('Remove this job listing?')) return
-      const idx = adminJobs.findIndex(j => j.id === id)
-      if (idx !== -1) adminJobs.splice(idx, 1)
-      renderAdminJobs()
+      try {
+        const res = await fetch(`http://localhost:5000/api/jobs/${id}`, {
+          method: 'DELETE',
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        if (!res.ok) throw new Error()
+        adminJobs = adminJobs.filter(j => j._id !== id)
+        renderAdminJobs()
+      } catch (err) {
+        alert('Could not remove this job.')
+      }
     }
 
-    // ── Section switcher ──
     function showSection(section) {
       const sections = ['overview','users','employers','jobs','applications']
       sections.forEach(s => {
@@ -423,14 +404,9 @@
       document.getElementById(`section-${section}`).classList.remove('hidden')
       document.getElementById(`nav-${section}`)?.classList.add('bg-blue-50','text-blue-600','font-medium')
       document.getElementById(`nav-${section}`)?.classList.remove('text-gray-600','hover:bg-gray-100')
-
-      if (section === 'users')        renderUsers()
-      if (section === 'employers')    renderEmployers()
-      if (section === 'jobs')         renderAdminJobs()
-      if (section === 'applications') renderApplications()
     }
 
+    loadAll()
   </script>
-
 </body>
 </html>
