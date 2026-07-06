@@ -1,4 +1,4 @@
-// js/auth.js — shared across ALL pages
+
 
 function getUser() {
   const raw = localStorage.getItem('user')

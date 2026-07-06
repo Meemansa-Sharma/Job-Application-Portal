@@ -108,7 +108,7 @@
 
       <!-- TOOLBAR -->
       <div class="flex items-center justify-between mb-4">
-        <p id="result-count" class="text-sm text-gray-500">Showing 9 jobs</p>
+        <p id="result-count" class="text-sm text-gray-500">Showing 0 jobs</p>
         <div class="flex items-center gap-2">
           <label class="text-xs text-gray-500">Sort by</label>
           <select id="sort-select" onchange="applyFilters()"
@@ -137,25 +137,12 @@
   </div>
 
   <script>
-    // ── Sample data ──
-    // Later replace this with: fetch('http://localhost:5000/api/jobs')
-    const allJobs = [
-      { id: 1, title: 'Frontend Developer',    company: 'Infosys',   location: 'Bangalore', type: 'Full-time',  exp: 'Fresher',  salary: 8,  salaryLabel: '₹8 LPA',    skills: ['React','Tailwind CSS','JavaScript'], posted: 'Today',  badge: 'new' },
-      { id: 2, title: 'Backend Developer',     company: 'TCS',       location: 'Mumbai',    type: 'Full-time',  exp: '1-3 yrs',  salary: 10, salaryLabel: '₹10 LPA',   skills: ['Node.js','MongoDB','Express'],       posted: '1d ago', badge: 'hot' },
-      { id: 3, title: 'UI/UX Designer',        company: 'Wipro',     location: 'Pune',      type: 'Full-time',  exp: 'Fresher',  salary: 7,  salaryLabel: '₹7 LPA',    skills: ['Figma','CSS','Adobe XD'],           posted: '2d ago', badge: ''    },
-      { id: 4, title: 'Full Stack Developer',  company: 'HCL Tech',  location: 'Hyderabad', type: 'Full-time',  exp: '3-5 yrs',  salary: 14, salaryLabel: '₹14 LPA',   skills: ['React','Node.js','MongoDB'],         posted: '3d ago', badge: ''    },
-      { id: 5, title: 'Frontend Intern',       company: 'Zoho',      location: 'Chennai',   type: 'Internship', exp: 'Fresher',  salary: 2,  salaryLabel: '₹20K/mo',   skills: ['HTML','CSS','JavaScript'],          posted: 'Today',  badge: 'new' },
-      { id: 6, title: 'Data Analyst',          company: 'Accenture', location: 'Delhi',     type: 'Full-time',  exp: '1-3 yrs',  salary: 9,  salaryLabel: '₹9 LPA',    skills: ['Python','SQL','Tableau'],           posted: '4d ago', badge: ''    },
-      { id: 7, title: 'React Native Dev',      company: 'Capgemini', location: 'Bangalore', type: 'Full-time',  exp: '1-3 yrs',  salary: 11, salaryLabel: '₹11 LPA',   skills: ['React','JavaScript','Redux'],       posted: '2d ago', badge: ''    },
-      { id: 8, title: 'DevOps Engineer',       company: 'IBM',       location: 'Bangalore', type: 'Remote',     exp: '3-5 yrs',  salary: 16, salaryLabel: '₹16 LPA',   skills: ['Docker','AWS','Kubernetes'],         posted: '5d ago', badge: ''    },
-      { id: 9, title: 'Node.js Developer',     company: 'Mindtree',  location: 'Hyderabad', type: 'Full-time',  exp: '1-3 yrs',  salary: 10, salaryLabel: '₹10 LPA',   skills: ['Node.js','Express','MongoDB'],       posted: '1d ago', badge: 'hot' },
-    ]
-
-    const mySkills = ['React', 'Tailwind CSS', 'JavaScript', 'Node.js', 'HTML', 'CSS']
+    
+    let allJobs = []
+    let mySkills = []
 
     function getChecked(name) {
-      return [...document.querySelectorAll(`input[type=checkbox][value="${name}"]`)]
-        .filter(c => c.checked).map(c => c.value)
+      return [...document.querySelectorAll(`input[value="${name}"]`)]
     }
 
     function getAllChecked() {
@@ -206,7 +193,7 @@
 
       list.innerHTML = jobs.map(job => {
         const matched = job.skills.filter(s => mySkills.includes(s)).length
-        const score   = Math.round(matched / job.skills.length * 100)
+        const score   = job.skills.length ? Math.round(matched / job.skills.length * 100) : 0
         const badgeHTML = job.badge === 'new'
           ? `<span class="text-xs bg-green-100 text-green-700 px-2 py-0.5 rounded-full font-medium">New</span>`
           : job.badge === 'hot'
@@ -246,7 +233,7 @@
             <span class="text-sm font-medium text-blue-600">${job.salaryLabel}</span>
             <div class="flex items-center gap-3">
               <span class="text-xs text-gray-400">${job.posted}</span>
-              <button onclick="event.stopPropagation(); applyToJob(${job.id})"
+              <button onclick="event.stopPropagation(); applyToJob('${job.id}')"
                 class="text-xs border border-blue-500 text-blue-600 px-3 py-1.5 rounded-lg hover:bg-blue-50">
                 Apply
               </button>
@@ -300,13 +287,46 @@
     }
 
     function applyToJob(id) {
-      // Later: call POST /api/applications with jobId
-      // For now just navigate to detail page
+      
       window.location.href = `job-detail.html?id=${id}`
     }
 
-    // Run on page load
-    applyFilters()
+    
+    async function fetchJobs() {
+      const listEl = document.getElementById('job-list')
+      listEl.innerHTML = `<p class="text-sm text-gray-400 text-center py-10">Loading jobs…</p>`
+
+      try {
+        const res = await fetch('http://localhost:5000/api/jobs')
+        if (!res.ok) throw new Error('Failed to load jobs')
+        const jobsFromApi = await res.json() // getJobs() returns a plain array
+
+        allJobs = jobsFromApi.map(job => ({
+          id: job._id,
+          title: job.title,
+          company: job.company,
+          location: job.location,
+          type: job.type,
+          exp: job.experience,
+          salary: parseInt(String(job.salary).replace(/\D/g, '')) || 0, // for "Highest salary" sort
+          salaryLabel: job.salary,          // already a formatted string like "₹8 LPA"
+          skills: job.tags || [],
+          posted: new Date(job.createdAt).toLocaleDateString(),
+          badge: ''
+        }))
+
+      
+        const user = typeof getUser === 'function' ? getUser() : null
+        mySkills = user?.skills || []
+
+        applyFilters()
+
+      } catch (err) {
+        listEl.innerHTML = `<p class="text-sm text-red-500 text-center py-10">Couldn't load jobs. Is the backend running?</p>`
+      }
+    }
+
+    fetchJobs()
   </script>
 
 </body>

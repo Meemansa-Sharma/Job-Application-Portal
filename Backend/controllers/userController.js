@@ -2,8 +2,7 @@ import User from "../models/User.js";
 import Job from "../models/Job.js";
 
 // PUT /api/users/me  (any logged-in user - profile.html "Save changes")
-// Accepts a partial body; only known, role-appropriate fields are updated.
-// Email/role/password are intentionally NOT editable here.
+
 export const updateProfile = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id);
@@ -53,8 +52,6 @@ export const updateProfile = async (req, res, next) => {
 };
 
 // POST /api/users/resume  (seeker only, multipart/form-data with "resume" file)
-// Uploads a resume to the seeker's profile directly (independent of any
-// specific job application). This is what profile.html's drag-and-drop box calls.
 export const uploadProfileResume = async (req, res, next) => {
   try {
     if (!req.file) {

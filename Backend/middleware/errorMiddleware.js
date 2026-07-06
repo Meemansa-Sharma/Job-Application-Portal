@@ -3,10 +3,7 @@ export const notFound = (req, res, next) => {
   res.status(404).json({ message: `Route not found: ${req.originalUrl}` });
 };
 
-// Catches any error passed to next(error), or thrown in an async route
-// in Express 5 (which auto-forwards async errors here).
-// Centralizing this means controllers don't need try/catch boilerplate
-// scattered everywhere with inconsistent error responses.
+
 export const errorHandler = (err, req, res, next) => {
   console.error(err.stack);
 

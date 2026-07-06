@@ -4,9 +4,6 @@ import Notification from "../models/Notification.js";
 import User from "../models/User.js";
 
 // POST /api/applications/:jobId  (seeker only, multipart/form-data with "resume" file)
-// If the seeker doesn't attach a new resume, we fall back to the resume
-// already on their profile (uploaded via PUT /api/users/resume), so they
-// aren't forced to re-upload for every single application.
 export const applyToJob = async (req, res, next) => {
   try {
     const { jobId } = req.params;
@@ -66,8 +63,7 @@ export const getMyApplications = async (req, res, next) => {
 };
 
 // DELETE /api/applications/:id  (seeker only, must own it - "Withdraw" button)
-// Only allowed while the application is still early-stage, matching the
-// frontend which only shows Withdraw for "applied"/"review" statuses.
+
 export const withdrawApplication = async (req, res, next) => {
   try {
     const application = await Application.findById(req.params.id);
@@ -126,7 +122,6 @@ export const getAllApplicantsForEmployer = async (req, res, next) => {
 };
 
 // PUT /api/applications/:id/status  (employer only, must own the related job)
-// body: { status, interviewDate?, interviewTime?, interviewMode?, interviewLink?, interviewNotes? }
 export const updateApplicationStatus = async (req, res, next) => {
   try {
     const { status, interviewDate, interviewTime, interviewMode, interviewLink, interviewNotes } = req.body;

@@ -2,9 +2,7 @@ import jwt from "jsonwebtoken";
 import User from "../models/User.js";
 
 // protect: runs before any route that requires a logged-in user.
-// It reads the JWT from the Authorization header, verifies it was
-// signed by us (not forged), and attaches the real user to req.user
-// so later code can trust req.user._id / req.user.role.
+
 export const protect = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
@@ -29,9 +27,7 @@ export const protect = async (req, res, next) => {
 };
 
 // optionalAuth: for public routes that want to know WHO is asking, without
-// requiring it. e.g. GET /api/jobs/:id is public, but if a logged-in seeker
-// hits it, we can attach a skill-match score to the response.
-// Never rejects the request - just attaches req.user if a valid token is present.
+
 export const optionalAuth = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
@@ -50,7 +46,6 @@ export const optionalAuth = async (req, res, next) => {
 };
 
 // authorize: a second gate AFTER protect, that checks the user's role.
-// Usage: authorize("employer", "admin") -> only employers and admins pass.
 export const authorize = (...allowedRoles) => {
   return (req, res, next) => {
     if (!req.user || !allowedRoles.includes(req.user.role)) {

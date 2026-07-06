@@ -8,8 +8,7 @@ if (!fs.existsSync(uploadDir)) {
 }
 
 // storage: WHERE and under WHAT NAME to save the file.
-// We prefix with a timestamp so two people uploading "resume.pdf"
-// don't overwrite each other.
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadDir),
   filename: (req, file, cb) => {
@@ -19,7 +18,7 @@ const storage = multer.diskStorage({
 });
 
 // fileFilter: reject anything that isn't a resume-shaped file,
-// BEFORE it gets written to disk.
+
 const fileFilter = (req, file, cb) => {
   const allowedTypes = [".pdf", ".doc", ".docx"];
   const ext = path.extname(file.originalname).toLowerCase();

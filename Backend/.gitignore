@@ -4,5 +4,5 @@ uploads/resumes/*
 !uploads/resumes/.gitkeep
 .DS_Store
 npm-debug.log*
-README.md
+
 

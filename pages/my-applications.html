@@ -18,44 +18,27 @@
       </div>
       <div class="px-5 py-4 border-b border-gray-100">
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold flex items-center justify-center" data-initials>
-          </div>
+          <div class="w-9 h-9 rounded-full bg-blue-100 text-blue-600 text-sm font-semibold flex items-center justify-center" data-initials></div>
           <div>
             <p class="text-sm font-medium text-gray-900" data-firstname></p>
-            <p class="text-xs text-gray-400" data-role ></p>
+            <p class="text-xs text-gray-400" data-role></p>
           </div>
         </div>
       </div>
       <nav class="flex-1 px-3 py-4 space-y-1">
-        <a href="seeker-dashboard.html"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">
-          🏠 Dashboard
-        </a>
-        <a href="profile.html"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">
-          👤 Profile
-        </a>
-        <a href="browse-jobs.html"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">
-          🔍 Browse Jobs
-        </a>
-        <a href="my-applications.html"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm bg-blue-50 text-blue-600 font-medium">
-          📄 My Applications
-        </a>
+        <a href="seeker-dashboard.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">🏠 Dashboard</a>
+        <a href="profile.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">👤 Profile</a>
+        <a href="browse-jobs.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-gray-600 hover:bg-gray-100">🔍 Browse Jobs</a>
+        <a href="my-applications.html" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm bg-blue-50 text-blue-600 font-medium">📄 My Applications</a>
       </nav>
       <div class="px-3 py-4 border-t border-gray-100">
-        <a href="../login.html"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-500 hover:bg-red-50">
-          🚪 Log out
-        </a>
+        <a href="#" onclick="logout()" class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-red-500 hover:bg-red-50">🚪 Log out</a>
       </div>
     </aside>
 
     <!-- MAIN CONTENT -->
     <main class="flex-1 p-6 overflow-auto">
 
-      <!-- HEADER -->
       <div class="mb-6">
         <h1 class="text-xl font-semibold text-gray-900">My Applications</h1>
         <p class="text-sm text-gray-500">Track the status of all your job applications</p>
@@ -64,19 +47,19 @@
       <!-- STATS ROW -->
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
         <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
-          <p class="text-2xl font-semibold text-gray-800" id="count-all">6</p>
+          <p class="text-2xl font-semibold text-gray-800" id="count-all">—</p>
           <p class="text-xs text-gray-400 mt-1">Total</p>
         </div>
         <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
-          <p class="text-2xl font-semibold text-blue-600" id="count-applied">2</p>
+          <p class="text-2xl font-semibold text-blue-600" id="count-applied">—</p>
           <p class="text-xs text-gray-400 mt-1">Applied</p>
         </div>
         <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
-          <p class="text-2xl font-semibold text-yellow-500" id="count-review">2</p>
+          <p class="text-2xl font-semibold text-yellow-500" id="count-review">—</p>
           <p class="text-xs text-gray-400 mt-1">Under review</p>
         </div>
         <div class="bg-white border border-gray-200 rounded-xl p-4 text-center">
-          <p class="text-2xl font-semibold text-green-500" id="count-selected">1</p>
+          <p class="text-2xl font-semibold text-green-500" id="count-selected">—</p>
           <p class="text-xs text-gray-400 mt-1">Selected</p>
         </div>
       </div>
@@ -84,73 +67,38 @@
       <!-- FILTER TABS + SEARCH -->
       <div class="bg-white border border-gray-200 rounded-xl mb-4 px-4 pt-4">
         <div class="flex items-center justify-between flex-wrap gap-3 mb-3">
-
-          <!-- TABS -->
           <div class="flex gap-1">
-            <button onclick="filterApps('all')" id="tab-all"
-              class="tab-btn px-4 py-1.5 rounded-lg text-sm font-medium bg-blue-600 text-white">
-              All
-            </button>
-            <button onclick="filterApps('applied')" id="tab-applied"
-              class="tab-btn px-4 py-1.5 rounded-lg text-sm text-gray-500 hover:bg-gray-100">
-              Applied
-            </button>
-            <button onclick="filterApps('review')" id="tab-review"
-              class="tab-btn px-4 py-1.5 rounded-lg text-sm text-gray-500 hover:bg-gray-100">
-              Under review
-            </button>
-            <button onclick="filterApps('interview')" id="tab-interview"
-              class="tab-btn px-4 py-1.5 rounded-lg text-sm text-gray-500 hover:bg-gray-100">
-              Interview
-            </button>
-            <button onclick="filterApps('selected')" id="tab-selected"
-              class="tab-btn px-4 py-1.5 rounded-lg text-sm text-gray-500 hover:bg-gray-100">
-              Selected
-            </button>
-            <button onclick="filterApps('rejected')" id="tab-rejected"
-              class="tab-btn px-4 py-1.5 rounded-lg text-sm text-gray-500 hover:bg-gray-100">
-              Rejected
-            </button>
+            <button onclick="filterApps('all')" id="tab-all" class="tab-btn px-4 py-1.5 rounded-lg text-sm font-medium bg-blue-600 text-white">All</button>
+            <button onclick="filterApps('applied')" id="tab-applied" class="tab-btn px-4 py-1.5 rounded-lg text-sm text-gray-500 hover:bg-gray-100">Applied</button>
+            <button onclick="filterApps('review')" id="tab-review" class="tab-btn px-4 py-1.5 rounded-lg text-sm text-gray-500 hover:bg-gray-100">Under review</button>
+            <button onclick="filterApps('interview')" id="tab-interview" class="tab-btn px-4 py-1.5 rounded-lg text-sm text-gray-500 hover:bg-gray-100">Interview</button>
+            <button onclick="filterApps('selected')" id="tab-selected" class="tab-btn px-4 py-1.5 rounded-lg text-sm text-gray-500 hover:bg-gray-100">Selected</button>
+            <button onclick="filterApps('rejected')" id="tab-rejected" class="tab-btn px-4 py-1.5 rounded-lg text-sm text-gray-500 hover:bg-gray-100">Rejected</button>
           </div>
-
-          <!-- SEARCH -->
-          <input type="text" id="app-search" placeholder="Search applications…"
-            oninput="filterApps(currentTab)"
+          <input type="text" id="app-search" placeholder="Search applications…" oninput="filterApps(currentTab)"
             class="text-sm border border-gray-200 rounded-lg px-3 py-1.5 focus:outline-none focus:ring-2 focus:ring-blue-300 w-48" />
-
         </div>
-
-        <!-- RESULT COUNT -->
-        <p id="result-label" class="text-xs text-gray-400 pb-3">Showing 6 applications</p>
+        <p id="result-label" class="text-xs text-gray-400 pb-3">Loading…</p>
       </div>
 
-      <!-- APPLICATION LIST -->
       <div id="app-list" class="space-y-3"></div>
 
-      <!-- EMPTY STATE -->
       <div id="empty-state" class="hidden text-center py-16">
         <p class="text-4xl mb-3">📭</p>
         <p class="text-gray-600 font-medium mb-1">No applications found</p>
         <p class="text-sm text-gray-400 mb-4">Try a different filter or search term</p>
-        <a href="browse-jobs.html"
-          class="text-sm bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700">
-          Browse jobs
-        </a>
+        <a href="browse-jobs.html" class="text-sm bg-blue-600 text-white px-5 py-2 rounded-lg hover:bg-blue-700">Browse jobs</a>
       </div>
 
       <!-- MODAL OVERLAY (interview details) -->
-      <div id="modal-overlay"
-        class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 px-4">
+      <div id="modal-overlay" class="hidden fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center z-50 px-4">
         <div class="bg-white rounded-2xl p-6 w-full max-w-md shadow-xl">
           <div class="flex justify-between items-start mb-4">
             <h2 class="text-base font-semibold text-gray-900">Interview details</h2>
             <button onclick="closeModal()" class="text-gray-400 hover:text-gray-700 text-xl leading-none">×</button>
           </div>
           <div id="modal-body" class="space-y-3 text-sm text-gray-600"></div>
-          <button onclick="closeModal()"
-            class="mt-5 w-full bg-blue-600 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700">
-            Close
-          </button>
+          <button onclick="closeModal()" class="mt-5 w-full bg-blue-600 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-blue-700">Close</button>
         </div>
       </div>
 
@@ -158,87 +106,8 @@
   </div>
 
   <script>
-
-    // ── Application data ──
-    // Later replace with: fetch('http://localhost:5000/api/applications/me')
-    const applications = [
-      {
-        id: 1,
-        title: 'Frontend Developer',
-        company: 'Infosys',
-        location: 'Bangalore',
-        type: 'Full-time',
-        salary: '₹8–12 LPA',
-        appliedDate: 'Jun 28, 2025',
-        status: 'selected',
-        interview: {
-          date: 'July 10, 2025',
-          time: '11:00 AM',
-          mode: 'Google Meet',
-          link: 'https://meet.google.com/abc-defg-hij'
-        }
-      },
-      {
-        id: 2,
-        title: 'Backend Developer',
-        company: 'TCS',
-        location: 'Mumbai',
-        type: 'Full-time',
-        salary: '₹10–14 LPA',
-        appliedDate: 'Jun 25, 2025',
-        status: 'review',
-        interview: null
-      },
-      {
-        id: 3,
-        title: 'Full Stack Developer',
-        company: 'HCL Tech',
-        location: 'Hyderabad',
-        type: 'Full-time',
-        salary: '₹14 LPA',
-        appliedDate: 'Jun 20, 2025',
-        status: 'interview',
-        interview: {
-          date: 'July 15, 2025',
-          time: '2:00 PM',
-          mode: 'In-person',
-          link: null
-        }
-      },
-      {
-        id: 4,
-        title: 'UI/UX Designer',
-        company: 'Wipro',
-        location: 'Pune',
-        type: 'Full-time',
-        salary: '₹7 LPA',
-        appliedDate: 'Jun 18, 2025',
-        status: 'rejected',
-        interview: null
-      },
-      {
-        id: 5,
-        title: 'Frontend Intern',
-        company: 'Zoho',
-        location: 'Chennai',
-        type: 'Internship',
-        salary: '₹20K/mo',
-        appliedDate: 'Jun 15, 2025',
-        status: 'applied',
-        interview: null
-      },
-      {
-        id: 6,
-        title: 'React Native Developer',
-        company: 'Capgemini',
-        location: 'Bangalore',
-        type: 'Full-time',
-        salary: '₹9 LPA',
-        appliedDate: 'Jun 10, 2025',
-        status: 'applied',
-        interview: null
-      }
-    ]
+    let applications = []
+    let currentTab = 'all'
 
     const statusConfig = {
       applied:   { label: 'Applied',       bg: 'bg-blue-100',   text: 'text-blue-700'   },
@@ -248,13 +117,26 @@
       rejected:  { label: 'Rejected',      bg: 'bg-red-100',    text: 'text-red-500'    }
     }
 
-    let currentTab = 'all'
+    async function loadApplications() {
+      const token = localStorage.getItem('token')
+      try {
+        const res = await fetch('http://localhost:5000/api/applications/my', {
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        if (!res.ok) throw new Error('Failed to load applications')
+        applications = await res.json()
+        updateCounts()
+        filterApps('all')
+      } catch (err) {
+        document.getElementById('app-list').innerHTML =
+          `<p class="text-sm text-red-400 text-center py-10">Couldn't load applications. Is the backend running?</p>`
+      }
+    }
 
     function filterApps(tab) {
       currentTab = tab
       const q = document.getElementById('app-search').value.toLowerCase()
 
-      // Update tab styles
       document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.classList.remove('bg-blue-600', 'text-white')
         btn.classList.add('text-gray-500', 'hover:bg-gray-100')
@@ -265,12 +147,11 @@
         activeTab.classList.remove('text-gray-500', 'hover:bg-gray-100')
       }
 
-      // Filter
       const filtered = applications.filter(app => {
+        const title = app.job ? app.job.title : ''
+        const company = app.job ? app.job.company : ''
         const matchTab = tab === 'all' || app.status === tab
-        const matchSearch = !q ||
-          app.title.toLowerCase().includes(q) ||
-          app.company.toLowerCase().includes(q)
+        const matchSearch = !q || title.toLowerCase().includes(q) || company.toLowerCase().includes(q)
         return matchTab && matchSearch
       })
 
@@ -282,7 +163,7 @@
 
     function renderApps(list) {
       const container = document.getElementById('app-list')
-      const empty     = document.getElementById('empty-state')
+      const empty = document.getElementById('empty-state')
 
       if (!list.length) {
         container.innerHTML = ''
@@ -293,45 +174,42 @@
 
       container.innerHTML = list.map(app => {
         const s = statusConfig[app.status]
+        const title = app.job ? app.job.title : '(job removed)'
+        const company = app.job ? app.job.company : '—'
+        const location = app.job ? app.job.location : ''
+        const type = app.job ? app.job.type : ''
+        const salary = app.job ? (app.job.salary || 'Not disclosed') : '—'
+        const appliedDate = new Date(app.createdAt).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })
+
         return `
         <div class="bg-white border border-gray-200 rounded-xl p-5 hover:border-blue-200 transition-colors">
           <div class="flex items-start justify-between gap-4 flex-wrap">
-
-            <!-- LEFT INFO -->
             <div class="flex items-start gap-4">
               <div class="w-11 h-11 rounded-xl bg-gray-100 border border-gray-200 flex items-center justify-center text-xs font-semibold text-gray-500 flex-shrink-0">
-                ${app.company.slice(0,2).toUpperCase()}
+                ${company.slice(0,2).toUpperCase()}
               </div>
               <div>
-                <h3 class="text-sm font-semibold text-gray-900 mb-0.5">${app.title}</h3>
-                <p class="text-xs text-gray-500">${app.company} &nbsp;·&nbsp; ${app.location} &nbsp;·&nbsp; ${app.type}</p>
-                <p class="text-xs text-gray-400 mt-0.5">Applied on ${app.appliedDate}</p>
+                <h3 class="text-sm font-semibold text-gray-900 mb-0.5">${title}</h3>
+                <p class="text-xs text-gray-500">${company} &nbsp;·&nbsp; ${location} &nbsp;·&nbsp; ${type}</p>
+                <p class="text-xs text-gray-400 mt-0.5">Applied on ${appliedDate}</p>
               </div>
             </div>
-
-            <!-- RIGHT -->
             <div class="flex flex-col items-end gap-2">
-              <span class="text-xs font-medium px-3 py-1 rounded-full ${s.bg} ${s.text}">
-                ${s.label}
-              </span>
-              <p class="text-xs font-medium text-blue-600">${app.salary}</p>
+              <span class="text-xs font-medium px-3 py-1 rounded-full ${s.bg} ${s.text}">${s.label}</span>
+              <p class="text-xs font-medium text-blue-600">${salary}</p>
             </div>
           </div>
 
-          <!-- PROGRESS TRACKER -->
           <div class="mt-4 flex items-center gap-0">
             ${['Applied', 'Review', 'Interview', 'Selected'].map((step, i) => {
-              const stepKeys   = ['applied', 'review', 'interview', 'selected']
               const currentIdx = ['applied','review','interview','selected','rejected'].indexOf(app.status)
-              const done       = i <= currentIdx && app.status !== 'rejected'
-              const active     = i === currentIdx && app.status !== 'rejected'
+              const done   = i <= currentIdx && app.status !== 'rejected'
+              const active = i === currentIdx && app.status !== 'rejected'
               return `
                 <div class="flex items-center ${i < 3 ? 'flex-1' : ''}">
                   <div class="flex flex-col items-center">
                     <div class="w-6 h-6 rounded-full border-2 flex items-center justify-center text-xs
-                      ${done
-                        ? 'bg-blue-600 border-blue-600 text-white'
-                        : 'bg-white border-gray-300 text-gray-400'}">
+                      ${done ? 'bg-blue-600 border-blue-600 text-white' : 'bg-white border-gray-300 text-gray-400'}">
                       ${done ? '✓' : i + 1}
                     </div>
                     <span class="text-xs mt-1 ${active ? 'text-blue-600 font-medium' : 'text-gray-400'}">${step}</span>
@@ -346,63 +224,49 @@
             Unfortunately your application was not shortlisted this time. Keep applying!
           </div>` : ''}
 
-          <!-- ACTION BUTTONS -->
           <div class="mt-4 pt-4 border-t border-gray-100 flex items-center gap-2 flex-wrap">
-            <a href="job-detail.html"
-              class="text-xs border border-gray-200 text-gray-600 px-3 py-1.5 rounded-lg hover:bg-gray-50">
-              View job
-            </a>
-            ${app.interview ? `
-            <button onclick="showInterview(${app.id})"
-              class="text-xs bg-purple-50 border border-purple-200 text-purple-700 px-3 py-1.5 rounded-lg hover:bg-purple-100">
+            ${app.job ? `<a href="job-detail.html?id=${app.job._id}" class="text-xs border border-gray-200 text-gray-600 px-3 py-1.5 rounded-lg hover:bg-gray-50">View job</a>` : ''}
+            ${app.status === 'interview' ? `
+            <button onclick="showInterview('${app._id}')" class="text-xs bg-purple-50 border border-purple-200 text-purple-700 px-3 py-1.5 rounded-lg hover:bg-purple-100">
               📅 Interview details
             </button>` : ''}
             ${app.status === 'applied' || app.status === 'review' ? `
-            <button onclick="withdrawApp(${app.id})"
-              class="text-xs text-red-400 border border-red-200 px-3 py-1.5 rounded-lg hover:bg-red-50 ml-auto">
+            <button onclick="withdrawApp('${app._id}')" class="text-xs text-red-400 border border-red-200 px-3 py-1.5 rounded-lg hover:bg-red-50 ml-auto">
               Withdraw
             </button>` : ''}
           </div>
-
         </div>`
       }).join('')
     }
 
     function showInterview(id) {
-      const app = applications.find(a => a.id === id)
-      if (!app || !app.interview) return
-      const iv = app.interview
+      const app = applications.find(a => a._id === id)
+      if (!app) return
       document.getElementById('modal-body').innerHTML = `
         <div class="bg-purple-50 border border-purple-100 rounded-xl p-4 space-y-3">
           <div class="flex gap-3">
             <span class="text-lg">🏢</span>
-            <div>
-              <p class="text-xs text-gray-400">Company</p>
-              <p class="font-medium text-gray-800">${app.company} — ${app.title}</p>
-            </div>
+            <div><p class="text-xs text-gray-400">Company</p><p class="font-medium text-gray-800">${app.job ? app.job.company : ''} — ${app.job ? app.job.title : ''}</p></div>
           </div>
           <div class="flex gap-3">
             <span class="text-lg">📅</span>
-            <div>
-              <p class="text-xs text-gray-400">Date & time</p>
-              <p class="font-medium text-gray-800">${iv.date} at ${iv.time}</p>
+            <div><p class="text-xs text-gray-400">Date & time</p>
+              <p class="font-medium text-gray-800">${app.interviewDate ? new Date(app.interviewDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) : 'To be confirmed'}${app.interviewTime ? ' at ' + app.interviewTime : ''}</p>
             </div>
           </div>
           <div class="flex gap-3">
             <span class="text-lg">📍</span>
-            <div>
-              <p class="text-xs text-gray-400">Mode</p>
-              <p class="font-medium text-gray-800">${iv.mode}</p>
-            </div>
+            <div><p class="text-xs text-gray-400">Mode</p><p class="font-medium text-gray-800">${app.interviewMode || 'Not specified'}</p></div>
           </div>
-          ${iv.link ? `
+          ${app.interviewLink ? `
           <div class="flex gap-3">
             <span class="text-lg">🔗</span>
-            <div>
-              <p class="text-xs text-gray-400">Meeting link</p>
-              <a href="${iv.link}" target="_blank"
-                class="text-blue-600 text-xs underline break-all">${iv.link}</a>
-            </div>
+            <div><p class="text-xs text-gray-400">Meeting link</p><a href="${app.interviewLink}" target="_blank" class="text-blue-600 text-xs underline break-all">${app.interviewLink}</a></div>
+          </div>` : ''}
+          ${app.interviewNotes ? `
+          <div class="flex gap-3">
+            <span class="text-lg">📝</span>
+            <div><p class="text-xs text-gray-400">Notes</p><p class="font-medium text-gray-800">${app.interviewNotes}</p></div>
           </div>` : ''}
         </div>`
       document.getElementById('modal-overlay').classList.remove('hidden')
@@ -412,12 +276,22 @@
       document.getElementById('modal-overlay').classList.add('hidden')
     }
 
-    function withdrawApp(id) {
+    async function withdrawApp(id) {
       if (!confirm('Are you sure you want to withdraw this application?')) return
-      const idx = applications.findIndex(a => a.id === id)
-      if (idx !== -1) applications.splice(idx, 1)
-      filterApps(currentTab)
-      updateCounts()
+      const token = localStorage.getItem('token')
+      try {
+        const res = await fetch(`http://localhost:5000/api/applications/${id}`, {
+          method: 'DELETE',
+          headers: { Authorization: `Bearer ${token}` }
+        })
+        const data = await res.json()
+        if (!res.ok) { alert(data.message || 'Could not withdraw this application'); return }
+        applications = applications.filter(a => a._id !== id)
+        updateCounts()
+        filterApps(currentTab)
+      } catch (err) {
+        alert('Something went wrong. Please try again.')
+      }
     }
 
     function updateCounts() {
@@ -427,15 +301,11 @@
       document.getElementById('count-selected').textContent = applications.filter(a => a.status === 'selected').length
     }
 
-    // Close modal on overlay click
     document.getElementById('modal-overlay').addEventListener('click', function(e) {
       if (e.target === this) closeModal()
     })
 
-    // Initial render
-    filterApps('all')
-
+    loadApplications()
   </script>
-
 </body>
 </html>
