@@ -1,67 +1,119 @@
 import Groq from "groq-sdk";
 
-const groq = process.env.GROQ_API_KEY ? new Groq({ apiKey: process.env.GROQ_API_KEY }) : null;
+const truncate = (str = "", max = 600) =>
+  str.length > max ? str.slice(0, max) + "…" : str;
 
-const MODEL = process.env.GROQ_MODEL || "openai/gpt-oss-20b";
+const getGroqClient = () => {
+  const apiKey = process.env.GROQ_API_KEY;
 
-const truncate = (str = "", max = 600) => (str.length > max ? str.slice(0, max) + "…" : str);
-
-/**
- * Asks Groq to evaluate how well a seeker's profile fits a job, and to
- * explain it in plain language (not just a percentage).
- * Returns: { score, matchedSkills, missingSkills, summary, tip }
- * Throws on any failure - the caller decides how to fall back.
- */
-export const getAISkillAnalysis = async ({ job, user }) => {
-  if (!groq) {
+  if (!apiKey) {
     throw new Error("GROQ_API_KEY is not configured");
   }
 
+  return new Groq({ apiKey });
+};
+
+const getModel = () =>
+  process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
+
+/**
+ * Returns:
+ * {
+ *   score,
+ *   matchedSkills,
+ *   missingSkills,
+ *   summary,
+ *   tip
+ * }
+ */
+export const getAISkillAnalysis = async ({ job, user }) => {
+  const groq = getGroqClient();
+  const MODEL = getModel();
+
   const systemPrompt =
-    "You are a career-fit assistant inside a job portal. Given a job and a candidate's profile, " +
-    "evaluate the fit honestly and helpfully. Respond with ONLY a JSON object, no markdown fences, " +
-    "no commentary outside the JSON, matching exactly this shape: " +
-    '{"score": <integer 0-100>, "matchedSkills": [<strings from the job\'s tags the candidate has>], ' +
-    '"missingSkills": [<strings from the job\'s tags the candidate lacks>], ' +
-    '"summary": "<1-2 sentence honest assessment of fit>", ' +
-    '"tip": "<1 short actionable tip to improve their chances for this specific job>"}';
+    "You are a career-fit assistant inside a job portal. " +
+    "Evaluate how well a candidate fits a job. " +
+    "Return ONLY valid JSON in this exact format: " +
+    '{"score":0,"matchedSkills":[],"missingSkills":[],"summary":"","tip":""}';
 
   const userPrompt = `
 JOB
 Title: ${job.title}
 Company: ${job.company}
-Required/desired skills (tags): ${job.tags?.length ? job.tags.join(", ") : "none listed"}
-Experience level: ${job.experience || "not specified"}
-Description: ${truncate(job.description)}
-${job.requirements ? `Requirements: ${truncate(job.requirements)}` : ""}
+Skills: ${job.tags?.join(", ") || "None"}
+Experience: ${job.experience || "Not specified"}
+
+Description:
+${truncate(job.description)}
+
+Requirements:
+${truncate(job.requirements || "")}
 
 CANDIDATE
-Skills: ${user.skills?.length ? user.skills.join(", ") : "none listed"}
-About: ${truncate(user.about || "not provided", 300)}
-Education: ${user.education?.degree ? `${user.education.degree}, ${user.education.institute || ""}` : "not provided"}
-`.trim();
 
-  const completion = await groq.chat.completions.create({
-    model: MODEL,
-    temperature: 0.3,
-    max_tokens: 400,
-    response_format: { type: "json_object" },
-    messages: [
-      { role: "system", content: systemPrompt },
-      { role: "user", content: userPrompt },
-    ],
-  });
+Skills:
+${user.skills?.join(", ") || "None"}
 
-  const raw = completion.choices?.[0]?.message?.content;
-  if (!raw) throw new Error("Empty response from Groq");
+About:
+${truncate(user.about || "", 300)}
 
-  const parsed = JSON.parse(raw); // throws if the model didn't return valid JSON - caller catches it
+Education:
+${
+  user.education?.degree
+    ? `${user.education.degree} - ${user.education.institute || ""}`
+    : "Not specified"
+}
+`;
 
-  return {
-    score: Math.max(0, Math.min(100, Math.round(Number(parsed.score) || 0))),
-    matchedSkills: Array.isArray(parsed.matchedSkills) ? parsed.matchedSkills : [],
-    missingSkills: Array.isArray(parsed.missingSkills) ? parsed.missingSkills : [],
-    summary: typeof parsed.summary === "string" ? parsed.summary : "",
-    tip: typeof parsed.tip === "string" ? parsed.tip : "",
-  };
+  try {
+    const completion = await groq.chat.completions.create({
+      model: MODEL,
+      temperature: 0.3,
+      max_tokens: 400,
+      messages: [
+        {
+          role: "system",
+          content: systemPrompt,
+        },
+        {
+          role: "user",
+          content: userPrompt,
+        },
+      ],
+    });
+
+    const raw = completion.choices?.[0]?.message?.content;
+
+    if (!raw) {
+      throw new Error("Empty response from Groq");
+    }
+
+    const parsed = JSON.parse(raw);
+
+    return {
+      score: Math.max(
+        0,
+        Math.min(100, Math.round(Number(parsed.score) || 0))
+      ),
+      matchedSkills: Array.isArray(parsed.matchedSkills)
+        ? parsed.matchedSkills
+        : [],
+      missingSkills: Array.isArray(parsed.missingSkills)
+        ? parsed.missingSkills
+        : [],
+      summary:
+        typeof parsed.summary === "string"
+          ? parsed.summary
+          : "No summary available.",
+      tip:
+        typeof parsed.tip === "string"
+          ? parsed.tip
+          : "No suggestions available.",
+    };
+  } catch (error) {
+    console.error("========== GROQ ERROR ==========");
+    console.error(error);
+    console.error("================================");
+    throw error;
+  }
 };
