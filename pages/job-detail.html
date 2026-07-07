@@ -53,7 +53,7 @@
           </div>
         </div>
 
-        <!-- SKILL TAGS -->
+        <!-- SKILL TAGS (job's required tags, not the match — just plain list) -->
         <div id="job-tags" class="flex flex-wrap gap-2 mb-5"></div>
 
         <!-- APPLY BUTTON -->
@@ -64,6 +64,19 @@
           </button>
           <button class="border border-gray-300 text-gray-600 px-4 py-2.5 rounded-lg text-sm hover:bg-gray-50">
             Save job
+          </button>
+        </div>
+
+        <!-- APPLY FORM  -->
+        <div id="apply-form" class="hidden mt-4 border border-gray-200 rounded-lg p-4 bg-gray-50">
+          <label class="block text-xs font-medium text-gray-600 mb-1">Resume (optional if one's already on your profile)</label>
+          <input type="file" id="resume-input" accept=".pdf,.doc,.docx" class="w-full text-sm mb-3" />
+          <label class="block text-xs font-medium text-gray-600 mb-1">Cover letter (optional)</label>
+          <textarea id="cover-letter-input" rows="3" class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm mb-3"></textarea>
+          <p id="apply-error" class="text-red-500 text-sm mb-3 hidden"></p>
+          <button onclick="submitApplication()" id="submit-apply-btn"
+            class="bg-blue-600 text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-blue-700">
+            Submit application
           </button>
         </div>
 
@@ -193,6 +206,7 @@
    
     const jobId = new URLSearchParams(window.location.search).get('id')
 
+   
     async function loadJobDetails() {
       if (!jobId) {
         document.getElementById('job-title').textContent = 'No job selected'
@@ -223,13 +237,13 @@
         document.getElementById('job-location').textContent = job.location
         document.getElementById('job-type').textContent = job.type
 
-       
+        // Plain skill tags 
         const tagsEl = document.getElementById('job-tags')
         tagsEl.innerHTML = (job.tags || [])
           .map(tag => `<span class="text-xs bg-gray-100 text-gray-500 px-3 py-1 rounded">${tag}</span>`)
           .join('')
 
-        
+        // Company info block 
         if (job.employer) {
           document.getElementById('company-heading').textContent = `About ${job.company}`
           document.getElementById('company-description').textContent =
@@ -247,7 +261,7 @@
       }
     }
 
-   
+    
     async function loadSkillMatch() {
       const loadingEl = document.getElementById('match-loading')
       const contentEl = document.getElementById('match-content')
@@ -271,7 +285,7 @@
         })
         if (!res.ok) throw new Error('Match request failed')
         const data = await res.json()
-      3
+
         document.getElementById('match-score').textContent = `${data.score}%`
         document.getElementById('match-bar').style.width = `${data.score}%`
         document.getElementById('match-count').textContent =
@@ -306,13 +320,46 @@
       }
     }
 
+   
     function handleApply() {
-     
-      document.getElementById('apply-success').classList.remove('hidden')
-      const btn = document.getElementById('apply-btn')
-      btn.disabled = true
-      btn.textContent = 'Applied ✓'
-      btn.classList.replace('bg-blue-600', 'bg-gray-300')
+      document.getElementById('apply-form').classList.toggle('hidden')
+    }
+
+    async function submitApplication() {
+      const errorEl = document.getElementById('apply-error')
+      const submitBtn = document.getElementById('submit-apply-btn')
+      errorEl.classList.add('hidden')
+
+      const formData = new FormData()
+      const file = document.getElementById('resume-input').files[0]
+      if (file) formData.append('resume', file)
+      const coverLetter = document.getElementById('cover-letter-input').value.trim()
+      if (coverLetter) formData.append('coverLetter', coverLetter)
+
+      submitBtn.disabled = true
+      submitBtn.textContent = 'Submitting…'
+
+      try {
+        const res = await fetch(`http://localhost:5000/api/applications/${jobId}`, {
+          method: 'POST',
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+          body: formData
+        })
+        const data = await res.json()
+        if (!res.ok) throw new Error(data.message || 'Could not submit application')
+
+        document.getElementById('apply-form').classList.add('hidden')
+        document.getElementById('apply-success').classList.remove('hidden')
+        const btn = document.getElementById('apply-btn')
+        btn.disabled = true
+        btn.textContent = 'Applied ✓'
+        btn.classList.replace('bg-blue-600', 'bg-gray-300')
+      } catch (err) {
+        errorEl.textContent = err.message
+        errorEl.classList.remove('hidden')
+        submitBtn.disabled = false
+        submitBtn.textContent = 'Submit application'
+      }
     }
 
     loadJobDetails()
